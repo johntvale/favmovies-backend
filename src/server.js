@@ -2,8 +2,10 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
-const errorHandler = require('../middlewares/errorHandler');
+const errorHandler = require('./middlewares/errorHandler');
 const userRoutes = require('./routes/userRoutes');
+const loginRoutes = require('./routes/loginRoutes');
+const initUser = require('./config/userInit');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,13 +13,19 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors());
 
-connectDB();
+connectDB().then(() => {
+  console.log('Banco de dados conectado com sucesso!');
+  initUser();
+}).catch((error) => {
+  console.error('Erro ao conectar ao banco de dados:', error);
+});
 
 app.get('/', (_req, res) => {
   res.send('API funcionando!');
 });
 
 app.use('/users', userRoutes);
+app.use('/', loginRoutes);
 
 app.use(errorHandler);
 

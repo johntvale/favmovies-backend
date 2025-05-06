@@ -1,7 +1,5 @@
 const User = require("../models/userModel");
-const NOT_FOUND = 404;
-const CONFLICT = 409;
-const INTERNAL_SERVER_ERROR = 500;
+const { CONFLICT, INTERNAL_SERVER_ERROR, NOT_FOUND } = require("../utils/httpStatusCode");
 
 const createUserService = async (userData) => {
   const { email } = userData;
@@ -37,12 +35,14 @@ const getUsersService = async () => {
       id: user._id,
       name: user.name,
       email: user.email,
+      role: user.role,
     }
   })
+
   return basicUserList;
 }
 
-const getUserService = async (userId) => {
+const getUserByIdService = async (userId) => {
   const user = await User.findById(userId);
   if (!user) {
     const error = new Error("User not found");
@@ -50,15 +50,18 @@ const getUserService = async (userId) => {
     throw error;
   }
 
-  const returnedUser = {
-    id: user._id,
-    name: user.name,
-    email: user.email,
-    createdAt: user.createdAt,
-    updatedAt: user.updatedAt,
+  return user;
+}
+
+const getUserByEmailService = async (userEmail) => {
+  const user = await User.findOne({ email: userEmail });
+  if (!user) {
+    const error = new Error("User not found");
+    error.statusCode = NOT_FOUND;
+    throw error;
   }
 
-  return returnedUser;
+  return user;
 }
 
 const updateUserService = async (userData, userId) => {
@@ -117,7 +120,8 @@ const deleteUserService = async (userId) => {
 module.exports = {
   createUserService,
   getUsersService,
-  getUserService,
+  getUserByIdService,
+  getUserByEmailService,
   updateUserService,
   deleteUserService,
 }

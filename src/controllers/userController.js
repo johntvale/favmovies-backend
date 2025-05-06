@@ -3,12 +3,11 @@ const { encrypterPassword } = require("../utils/bcrypt");
 const {
   createUserService,
   getUsersService,
-  getUserService,
+  getUserByIdService,
   updateUserService,
   deleteUserService,
 } = require("../services/userService");
-
-const BAD_REQUEST = 400;
+const { BAD_REQUEST, CREATED, OK } = require("../utils/httpStatusCode");
 
 const createUserController = async (req, res, next) => {
   try {
@@ -27,7 +26,7 @@ const createUserController = async (req, res, next) => {
     userPayload.password = encrypterPassword(userPayload.password);
 
     const createdUser = await createUserService(userPayload);
-    res.status(201).json({
+    res.status(CREATED).json({
       message: "User created successfully",
       user: createdUser
     });
@@ -39,7 +38,7 @@ const createUserController = async (req, res, next) => {
 const getUsersController = async (_req, res, next) => {
   try {
     const usersList = await getUsersService();
-    res.status(200).json({
+    res.status(OK).json({
       message: "Users retrieved successfully",
       users: usersList
     });
@@ -58,8 +57,8 @@ const getUserController = async (req, res, next) => {
       return next(error);
     }
     
-    const user = await getUserService(userId);
-    res.status(200).json({
+    const user = await getUserByIdService(userId);
+    res.status(OK).json({
       message: "User retrieved successfully",
       user: user
     });
@@ -93,7 +92,7 @@ const updateUserController = async (req, res, next) => {
     userPayload.password = encrypterPassword(userPayload.password);
 
     const updatedUser = await updateUserService(userPayload, userId);
-    res.status(200).json({
+    res.status(OK).json({
       message: "User updated successfully",
       user: updatedUser
     });
@@ -113,7 +112,7 @@ const deleteUserController = async (req, res, next) => {
     }
     
     const user = await deleteUserService(userId);
-    res.status(200).json({
+    res.status(OK).json({
       message: "User deleted successfully",
       user: user
     });
