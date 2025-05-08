@@ -9,7 +9,10 @@ const generateToken = (userData) => {
 }
 
 const verifyToken = (token) => {
-  return jwt.verify(token, process.env.JWT_SECRET);
+  return jwt.verify(token, process.env.JWT_SECRET, (err, decoded)=>{
+    if (err) return err;
+    return decoded
+  });
 }
 
 module.exports = {
