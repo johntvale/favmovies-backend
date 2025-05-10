@@ -10,12 +10,12 @@ const {
 } = require("../controllers/userController");
 
 const auth = require("../middlewares/authenticationMiddleware");
-const roleMiddleware = require("../middlewares/")
+const authorizationMiddleware = require("../middlewares/authorizationMiddleware")
 
 router.post("/", createUserController);
-router.get("/", auth, roleMiddleware('admin'), getUsersController);
-router.get("/:id", auth, roleMiddleware('admin'), getUserController);
-router.patch("/:id", auth, roleMiddleware('admin'), updateUserController);
-router.delete("/:id", auth, roleMiddleware('admin'), deleteUserController);
+router.get("/", auth, authorizationMiddleware(['admin']), getUsersController);
+router.get("/:id", auth, authorizationMiddleware(['admin', 'user']), getUserController);
+router.patch("/:id", auth, authorizationMiddleware(['admin', 'user']), updateUserController);
+router.delete("/:id", auth, authorizationMiddleware(['admin', 'user']), deleteUserController);
 
 module.exports = router;

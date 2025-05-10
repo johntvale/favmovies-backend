@@ -1,6 +1,7 @@
 const { INTERNAL_SERVER_ERROR } = require("../utils/httpStatusCode");
 
-const errorHandler = (err, _req, res, _next) => {
+// eslint-disable-next-line no-unused-vars
+const errorHandler = (err, _req, res, next) => {
   const statusCode = err.statusCode || INTERNAL_SERVER_ERROR;
   const message = err.message || "Internal Server Error";
 

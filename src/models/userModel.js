@@ -19,6 +19,18 @@ const userSchema = new mongoose.Schema({
     enum: ['user', 'admin'],
     default: 'user'
   },
+  favoriteList: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Movie'
+  }],
+  watchLaterList: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Movie'
+  }],
+  watchedList: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Movie'
+  }],
 }, {timestamps: true});
 
 const User = mongoose.model('User', userSchema);

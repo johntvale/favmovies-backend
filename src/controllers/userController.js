@@ -7,7 +7,8 @@ const {
   updateUserService,
   deleteUserService,
 } = require("../services/userService");
-const { BAD_REQUEST, CREATED, OK } = require("../utils/httpStatusCode");
+const { BAD_REQUEST, CREATED, OK, FORBIDDEN } = require("../utils/httpStatusCode");
+const hasAccess = require("../utils/permissions");
 
 const createUserController = async (req, res, next) => {
   try {
@@ -50,7 +51,7 @@ const getUsersController = async (_req, res, next) => {
 const getUserController = async (req, res, next) => {
   try {
     const userId = req.params.id;
-    
+    const authenticatedUser = req.user;
     if (userId.length !== 24) {
       const error = new Error("Invalid user ID format");
       error.statusCode = BAD_REQUEST;
@@ -58,6 +59,15 @@ const getUserController = async (req, res, next) => {
     }
     
     const user = await getUserByIdService(userId);
+
+    if (authenticatedUser) {
+      if (!hasAccess(authenticatedUser, user._id.toString())) {
+        const error = new Error("Access denied");
+        error.statusCode = FORBIDDEN;
+        return next(error);
+      }
+    }
+
     res.status(OK).json({
       message: "User retrieved successfully",
       user: user
@@ -70,6 +80,7 @@ const getUserController = async (req, res, next) => {
 const updateUserController = async (req, res, next) => {
   try {
     const userId = req.params.id;
+    const authenticatedUser = req.user;
     
     if (userId.length !== 24) {
       const error = new Error("Invalid user ID format");
@@ -91,6 +102,21 @@ const updateUserController = async (req, res, next) => {
   
     userPayload.password = encrypterPassword(userPayload.password);
 
+    const user = await getUserByIdService(userId);
+    if (!user) {
+      const error = new Error("User not found");
+      error.statusCode = BAD_REQUEST;
+      return next(error);
+    }
+
+    if (authenticatedUser) {
+      if (!hasAccess(authenticatedUser, user._id.toString())) {
+        const error = new Error("Access denied");
+        error.statusCode = FORBIDDEN;
+        return next(error);
+      }
+    }
+
     const updatedUser = await updateUserService(userPayload, userId);
     res.status(OK).json({
       message: "User updated successfully",
@@ -104,17 +130,33 @@ const updateUserController = async (req, res, next) => {
 const deleteUserController = async (req, res, next) => {
   try {
     const userId = req.params.id;
+    const authenticatedUser = req.user;
     
     if (userId.length !== 24) {
       const error = new Error("Invalid user ID format");
       error.statusCode = BAD_REQUEST;
       return next(error);
     }
+
+    const user = await getUserByIdService(userId);
+    if (!user) {
+      const error = new Error("User not found");
+      error.statusCode = BAD_REQUEST;
+      return next(error);
+    }
+
+    if (authenticatedUser) {
+      if (!hasAccess(authenticatedUser, userId)) {
+        const error = new Error("Access denied");
+        error.statusCode = FORBIDDEN;
+        return next(error);
+      }
+    }
     
-    const user = await deleteUserService(userId);
+    const deletedUser = await deleteUserService(userId);
     res.status(OK).json({
       message: "User deleted successfully",
-      user: user
+      user: deletedUser
     });
   } catch (error) {
     next(error);

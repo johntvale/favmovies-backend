@@ -3,6 +3,7 @@ const { comparerPassword } = require("../utils/bcrypt");
 const { generateToken } = require("../utils/jwt");
 const { getUserByEmailService } = require("../services/userService");
 const { NOT_FOUND, UNAUTHORIZED, BAD_REQUEST } = require("../utils/httpStatusCode");
+const FIFTEEN_MINUTES = 15 * 60 * 1000;
 
 const loginController = async (req, res, next) => {
   try {
@@ -24,21 +25,35 @@ const loginController = async (req, res, next) => {
       return next(error);
     }
 
-    const isValidPassword = comparerPassword(loginPayload.password, storedUser.password);
-    if (!isValidPassword) {
+    const isMatchingPasswords = comparerPassword(loginPayload.password, storedUser.password);
+    if (!isMatchingPasswords) {
       const error = new Error("Unauthorized: Invalid password");
       error.statusCode = UNAUTHORIZED;
       return next(error);
     }
-
+    
     const token = generateToken({
-      user: storedUser._id,
+      id: storedUser._id,
       role: storedUser.role
     });
 
-    res.status(200).json({
+    res.cookie("token", token, {
+      httpOnly: true,
+      sameSite: "strict",
+      maxAge: FIFTEEN_MINUTES,
+    }).status(200).json({
       message: "Login successfully!",
-      token
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+const logOutController = async (_req, res, next) => {
+  try {
+    res.clearCookie("token");
+    return res.status(200).json({
+      message: "Logout successfully!",
     });
   } catch (error) {
     next(error);
@@ -47,5 +62,6 @@ const loginController = async (req, res, next) => {
 
 module.exports = {
   loginController,
+  logOutController
 };
 
