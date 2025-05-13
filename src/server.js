@@ -6,6 +6,7 @@ const connectDB = require('./config/db');
 const errorHandler = require('./middlewares/errorHandler');
 const userRoutes = require('./routes/userRoutes');
 const loginRoutes = require('./routes/loginRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');
 const initUser = require('./config/userInit');
 
 const app = express();
@@ -28,6 +29,7 @@ app.get('/', (_req, res) => {
 
 app.use('/users', userRoutes);
 app.use('/', loginRoutes);
+app.use('/categories', categoryRoutes);
 
 app.use(errorHandler);
 

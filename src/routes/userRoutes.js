@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-
 const {
   createUserController,
   getUsersController,
@@ -8,7 +7,6 @@ const {
   updateUserController,
   deleteUserController,
 } = require("../controllers/userController");
-
 const auth = require("../middlewares/authenticationMiddleware");
 const authorizationMiddleware = require("../middlewares/authorizationMiddleware")
 

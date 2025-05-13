@@ -1,5 +1,9 @@
 const User = require("../models/userModel");
-const { CONFLICT, INTERNAL_SERVER_ERROR, NOT_FOUND } = require("../utils/httpStatusCode");
+const {
+  CONFLICT,
+  INTERNAL_SERVER_ERROR,
+  NOT_FOUND
+} = require("../utils/httpStatusCode");
 
 const createUserService = async (userData) => {
   const { email } = userData;

@@ -12,15 +12,26 @@ const movieSchema = new mongoose.Schema({
   releaseDate: {
     type: Date,
     required: true,
-  },  
-  rating: {
-    type: Number,
-    min: 0,
-    max: 10,
+  },
+  director: {
+    type: String,
+    required: true,
   },
   imageUrl: {
     type: String,
     required: true,
+  },
+  cast: {
+    type: [String],
+  },
+  rating: {
+    type: Number,
+    min: 0,
+    max: 5,
+  },
+  watchCount: {
+    type: Number,
+    default: 0,
   },
   categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }]
 }, { timestamps: true });
