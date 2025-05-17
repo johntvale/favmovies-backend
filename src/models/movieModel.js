@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { CATEGORIES } = require('../utils/categoryList');
 
 const movieSchema = new mongoose.Schema({
   title: {
@@ -9,13 +10,17 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  category: {
+    type: [String],
+    enum: CATEGORIES,
+    required: true,
+  },
   releaseDate: {
     type: Date,
     required: true,
   },
   director: {
     type: String,
-    required: true,
   },
   imageUrl: {
     type: String,
@@ -24,16 +29,58 @@ const movieSchema = new mongoose.Schema({
   cast: {
     type: [String],
   },
-  rating: {
+  ratings: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true },
+      score: {
+        type: Number,
+        min: 0,
+        max: 5,
+        required: true
+      },
+    }
+  ],
+  averageRating: {
     type: Number,
-    min: 0,
-    max: 5,
+    default: 0
   },
-  watchCount: {
+  favorite: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+      },
+      favorite: {
+        type: Boolean,
+        required: true
+      },
+    }
+  ],
+  favoriteCount: {
+    type: Number,
+    default: 0
+  },
+  view: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+      },
+      view: {
+        type: Number,
+        required: true
+      },
+    }
+  ],
+  viewCount: {
     type: Number,
     default: 0,
   },
-  categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }]
 }, { timestamps: true });
 
 const Movie = mongoose.model('Movie', movieSchema);

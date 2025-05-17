@@ -1,9 +1,17 @@
 
-# 📘 Documentação da API de Usuários
+# 📘 Documentação da API FavMovies
 
-Backend da aplicação de trailers de filmes. Esta API permite o gerenciamento de usuários com autenticação via login tradicional e OAuth2, com controle de acesso por roles (usuário e admin).
+Backend da aplicação de Trailers de Filmes.
+<br>
+Esta API permite o gerenciamento e disponibilização de Filmes, Categorias, Listas de Filmes e Usuários.
+<br>
+A API possui middlewares de Autenticação e Autorização, com controle de acesso por roles (usuário e admin) via Cookie Token utilizando JWT.
+<br>
+Usuários logados poderão listar e conhecer os filmes adicionados na plataforma, assistir aos trailer, avaliar os filmes que desejar, além de poder adicioná-los às suas Listas de Filmes (Favoritos, Assistidos ou Assistir mais tarde).
+<br>
+Admins poderão gerenciar Usuários, Filmes e Categorias.
 
-### 🔧 Tecnologias
+## 🔧 Tecnologias
 
 - Node.js
 - Express.js
@@ -15,7 +23,7 @@ Backend da aplicação de trailers de filmes. Esta API permite o gerenciamento d
 
 ---
 
-### 📌 Requisitos
+## 📌 Requisitos
 
 - Node.js 18+
 - Docker (para executar MongoDB localmente)
@@ -24,7 +32,7 @@ Backend da aplicação de trailers de filmes. Esta API permite o gerenciamento d
 
 ---
 
-### 🚀 Instalação
+## 🚀 Instalação
 
 ```bash
 git clone https://github.com/seu-usuario/seu-repositorio.git
@@ -32,26 +40,27 @@ cd seu-repositorio
 npm install
 ```
 
-### Execução
-#### Usando Docker para o banco de dados:
+## ▶️ Execução
+### Usando Docker para o banco de dados:
 ```bash
 docker-compose up -d
 ```
 
-#### Iniciar o servidor:
+### Iniciar o servidor:
 ```bash
 npm run dev
 ```
 
-### 🔐 Autenticação
+## 🔐 Autenticação
 A maioria dos endpoints requer token JWT no cookie `token`. O login gera esse cookie. Para testes via Postman, habilite o uso de cookies automaticamente após login.
 
 ---
 
-### Endpoints
+## Endpoints (Usuários)
 
-#### 🔽 1. Criar Usuário
-- **URL:** `POST /users`
+### 🔽 1. Criar Usuário
+- **URL:** `/users`
+- **Método:** `POST`
 - **Autenticação:** ❌ Não requer
 
 #### Body (JSON):
@@ -103,7 +112,8 @@ Resposta 409: `"Email already exists"`
 ---
 
 ### 📥 2. Login
-- **URL:** `POST /login`
+- **URL:** `/login`
+- **Método:** `POST`
 - **Autenticação:** ❌ Não requer
 
 #### Body (JSON):
@@ -141,7 +151,8 @@ Resposta 404: `"User not found"`
 ---
 
 ### 📤 3. Logout
-- **URL:** `POST /logout`
+- **URL:** `/logout`
+- **Método:** `POST`
 - **Autenticação:** ✅ Requer cookie token
 
 #### ✅ Resposta 200
@@ -154,7 +165,8 @@ Resposta 404: `"User not found"`
 ---
 
 ### 👥 4. Buscar Todos os Usuários
-- **URL:** `GET /users`
+- **URL:** `/users`
+- **Método:** `GET`
 - **Autenticação:** ✅ Requer cookie token
 - **Permissão:** Somente usuários com role `admin`
 
@@ -176,7 +188,8 @@ Resposta 404: `"User not found"`
 ---
 
 ### 👤 5. Buscar Usuário por ID
-- **URL:** `GET /users/:id`
+- **URL:** `/users/:id`
+- **Método:** `GET`
 - **Autenticação:** ✅ Requer cookie token
 - **Permissão:** Somente o dono da conta ou admin
 
@@ -204,7 +217,8 @@ Resposta 403: `"Access denied"`
 ---
 
 ### ✏️ 6. Atualizar Usuário
-- **URL:** `PUT /users/:id`
+- **URL:** `/users/:id`
+- **Método:** `PATCH`
 - **Autenticação:** ✅ Requer cookie token
 - **Permissão:** Somente o dono da conta ou admin
 
@@ -240,7 +254,8 @@ Resposta 403: `"Access denied"`
 ---
 
 ### 🗑️ 7. Deletar Usuário
-- **URL:** `DELETE /users/:id`
+- **URL:** `/users/:id`
+- **Método:** `DELETE`
 - **Autenticação:** ✅ Requer cookie token
 - **Permissão:** Somente o dono da conta ou admin
 
@@ -263,6 +278,217 @@ Resposta 400: `"Invalid user ID format"`
 
 **Sem permissão:**  
 Resposta 403: `"Access denied"`
+
+---
+
+## 📂 Endpoints - Categories
+
+---
+
+### ➕ 1. Criar Categoria
+- **URL:** `/categories`
+- **Método:** `POST`
+- **Autenticação:** ✅ Requer cookie token  
+- **Permissão:** Somente usuários com role `admin`
+
+#### Body (JSON):
+```json
+{
+  "name": "Action"
+}
+```
+
+#### ✅ Resposta 201
+```json
+{
+  "message": "Category created successfully",
+  "category": {
+    "id": "6640a5e1b9a31cf0f5b743d3",
+    "name": "Action",
+    "createdAt": "2024-05-12T12:00:00.000Z",
+    "updatedAt": "2024-05-12T12:00:00.000Z"
+  }
+}
+```
+
+#### ❌ Exemplos de Requisições Inválidas
+
+**Nome curto:**
+```json
+{
+  "name": "Ac"
+}
+```
+Resposta 400:
+```json
+{
+  "message": "Invalid category name",
+  "error": "Category name must be at least 3 characters long."
+}
+```
+
+**Nome já existente:**
+Resposta 409:
+```json
+{
+  "message": "Category name already exists"
+}
+```
+
+---
+
+### 📚 2. Buscar Todas as Categorias
+- **URL:** `/categories`
+- **Método:** `GET`
+- **Autenticação:** ✅ Requer cookie token  
+- **Permissão:** Somente usuários com role `admin`
+
+#### ✅ Resposta 200
+```json
+{
+  "message": "Categories retrieved successfully",
+  "categories": [
+    {
+      "id": "6640a5e1b9a31cf0f5b743d3",
+      "name": "Action",
+      "createdAt": "2024-05-12T12:00:00.000Z",
+      "updatedAt": "2024-05-12T12:00:00.000Z"
+    }
+  ]
+}
+```
+
+---
+
+### 🔍 3. Buscar Categoria por ID
+- **URL:** `/categories/:id`
+- **Método:** `GET`
+- **Autenticação:** ✅ Requer cookie token  
+- **Permissão:** Somente usuários com role `admin`
+
+#### ✅ Resposta 200
+```json
+{
+  "message": "Category retrieved successfully",
+  "category": {
+    "id": "6640a5e1b9a31cf0f5b743d3",
+    "name": "Action",
+    "createdAt": "2024-05-12T12:00:00.000Z",
+    "updatedAt": "2024-05-12T12:00:00.000Z"
+  }
+}
+```
+
+#### ❌ Exemplos de Erros
+
+**ID inválido:**
+Resposta 400:
+```json
+{
+  "message": "Invalid category ID format"
+}
+```
+
+**Categoria não encontrada:**
+Resposta 404:
+```json
+{
+  "message": "Category not found"
+}
+```
+
+---
+
+### ✏️ 4. Atualizar Categoria
+- **URL:** `/categories/:id`
+- **Método:** `PATCH`
+- **Autenticação:** ✅ Requer cookie token  
+- **Permissão:** Somente usuários com role `admin`
+
+#### Body (JSON):
+```json
+{
+  "name": "Adventure"
+}
+```
+
+#### ✅ Resposta 200
+```json
+{
+  "message": "Category updated successfully",
+  "category": {
+    "id": "6640a5e1b9a31cf0f5b743d3",
+    "name": "Adventure",
+    "createdAt": "2024-05-12T12:00:00.000Z",
+    "updatedAt": "2024-05-12T12:10:00.000Z"
+  }
+}
+```
+
+#### ❌ Exemplos de Erros
+
+**Nome duplicado:**
+Resposta 409:
+```json
+{
+  "message": "Category name already exists"
+}
+```
+
+**ID inválido:**
+Resposta 400:
+```json
+{
+  "message": "Invalid category ID format"
+}
+```
+
+**Categoria não encontrada:**
+Resposta 404:
+```json
+{
+  "message": "Category not found"
+}
+```
+
+---
+
+### 🗑️ 5. Deletar Categoria
+- **URL:** `/categories/:id`
+- **Método:** `DELETE`
+- **Autenticação:** ✅ Requer cookie token  
+- **Permissão:** Somente usuários com role `admin`
+
+#### ✅ Resposta 200
+```json
+{
+  "message": "Category deleted successfully",
+  "category": {
+    "id": "6640a5e1b9a31cf0f5b743d3",
+    "name": "Adventure",
+    "createdAt": "2024-05-12T12:00:00.000Z",
+    "updatedAt": "2024-05-12T12:10:00.000Z"
+  }
+}
+```
+
+#### ❌ Exemplos de Erros
+
+**ID mal formatado:**
+Resposta 400:
+```json
+{
+  "message": "Invalid category ID format"
+}
+```
+
+**Categoria não encontrada:**
+Resposta 404:
+```json
+{
+  "message": "Category not found"
+}
+```
 
 ---
 

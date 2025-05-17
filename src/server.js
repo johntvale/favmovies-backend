@@ -6,7 +6,7 @@ const connectDB = require('./config/db');
 const errorHandler = require('./middlewares/errorHandler');
 const userRoutes = require('./routes/userRoutes');
 const loginRoutes = require('./routes/loginRoutes');
-const categoryRoutes = require('./routes/categoryRoutes');
+const movieRoutes = require('./routes/movieRoutes');
 const initUser = require('./config/userInit');
 
 const app = express();
@@ -28,8 +28,16 @@ app.get('/', (_req, res) => {
 });
 
 app.use('/users', userRoutes);
-app.use('/', loginRoutes);
-app.use('/categories', categoryRoutes);
+app.use('/movies', movieRoutes);
+app.use('/auth', loginRoutes);
+
+
+app.use((req, res) => {
+  res.status(404).json({
+    error: 'Rota não encontrada',
+    path: req.originalUrl
+  });
+});
 
 app.use(errorHandler);
 
@@ -37,3 +45,5 @@ app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 }
 );
+
+module.exports = app;
