@@ -69,19 +69,6 @@ Para testes via Postman, habilite o uso de cookies automaticamente após login.
 
 ## 📂 Endpoints
 
-// Endpoint to create a new user - POST /users
-// Endpoint for user login - POST /login
-// Endpoint for user logout - POST /logout
-// Endpoint to fetch all users - GET /users
-// Endpoint to fetch a user by ID - GET /users/:id
-// Endpoint to update a user by ID - PATCH /users/:id
-// Endpoint to delete a user by ID - DELETE /users/:id
-// Endpoint to create a new movie - POST /movies
-// Endpoint to fetch all movies - GET /movies
-// Endpoint to fetch a movie by ID - GET /movies/:id
-// Endpoint to update a movie by ID - PATCH /movies/:id
-// Endpoint to delete a movie by ID - DELETE /movies/:id
-
 ### Lista de Endpoints Disponíveis
 
 #### 👥 Usuários
