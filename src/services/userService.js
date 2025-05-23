@@ -28,8 +28,13 @@ const createUserService = async (userData) => {
     name: createdUser.name,
     email: createdUser.email,
   }
+
+  const result = {
+    "message": "User created successfully",
+    "user": returnedUser,
+  }
   
-  return returnedUser;
+  return result;
 }
 
 const getUsersService = async () => {
@@ -43,21 +48,43 @@ const getUsersService = async () => {
     }
   })
 
-  return basicUserList;
+  const result = {
+    "message": "Users retrieved successfully",
+    "users": basicUserList,
+  }
+
+  return result;
 }
 
-const getUserByIdService = async (userId) => {
-  const user = await User.findById(userId);
+const getByIdUserService = async (userId) => {
+  const user = await User.findById(userId)
+    .populate({
+      path: 'favoriteList',
+      select: '-ratings -favorite -view'
+    })
+    .populate({
+      path: 'watchedList',
+      select: '-ratings -favorite -view'
+    })
+    .populate({
+      path: 'watchLaterList',
+      select: '-ratings -favorite -view'
+    }); 
   if (!user) {
     const error = new Error("User not found");
     error.statusCode = NOT_FOUND;
     throw error;
   }
 
-  return user;
+  const result = {
+    "message": "User retrieved successfully",
+    "user": user
+  }
+
+  return result;
 }
 
-const getUserByEmailService = async (userEmail) => {
+const getByEmailUserService = async (userEmail) => {
   const user = await User.findOne({ email: userEmail });
   if (!user) {
     const error = new Error("User not found");
@@ -65,7 +92,12 @@ const getUserByEmailService = async (userEmail) => {
     throw error;
   }
 
-  return user;
+  const result = {
+    "message": "User retrieved successfully",
+    "user": user
+  }
+
+  return result;
 }
 
 const updateUserService = async (userData, userId) => {
@@ -75,19 +107,24 @@ const updateUserService = async (userData, userId) => {
     error.statusCode = NOT_FOUND;
     throw error;
   }
-  
-  const isNotUniqueEmail = await User.findOne({ email: userData.email });
 
-  if (isNotUniqueEmail && isNotUniqueEmail._id.toString() !== userId) {
-    const error = new Error("Email already exists");
-    error.statusCode = CONFLICT;
-    throw error;
+  if (userData.email) {
+    const isNotUniqueEmail = await User.findOne({ email: userData.email });
+    if (isNotUniqueEmail && isNotUniqueEmail._id.toString() !== userId) {
+      const error = new Error("Email already exists");
+      error.statusCode = CONFLICT;
+      throw error;
+    }
   }
 
-  const updatedUser = await User.findByIdAndUpdate(userId, userData, {
-    new: true,
-    runValidators: true,
-  });
+  const updatedUser = await User.findByIdAndUpdate(
+    userId,
+    { $set: userData },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
 
   if (!updatedUser) {
     const error = new Error("User update failed");
@@ -99,33 +136,44 @@ const updateUserService = async (userData, userId) => {
     id: updatedUser._id,
     name: updatedUser.name,
     email: updatedUser.email,
+    role: updatedUser.role,
+  };
+
+  const result = {
+    "message": "User updated successfully",
+    "user": returnedUser,
   }
 
-  return returnedUser;
-}
+  return result;
+};
 
 const deleteUserService = async (userId) => {
-  const deletedUser = await User.findByIdAndDelete(userId);
-  if (!deletedUser) {
+  const deleteUser = await User.findByIdAndDelete(userId);
+  if (!deleteUser) {
     const error = new Error("User not found");
     error.statusCode = NOT_FOUND;
     throw error;
   }
 
-  const deletedUserData = {
+  const deletedUser = {
     id: deletedUser._id,
     name: deletedUser.name,
     email: deletedUser.email,
   }
 
-  return deletedUserData;
+  const result = {
+    "message": "User deleted successfully",
+    "user": deletedUser,
+  }
+
+  return result;
 }
 
 module.exports = {
   createUserService,
   getUsersService,
-  getUserByIdService,
-  getUserByEmailService,
+  getByIdUserService,
+  getByEmailUserService,
   updateUserService,
   deleteUserService,
 }

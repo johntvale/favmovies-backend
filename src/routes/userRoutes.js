@@ -10,10 +10,10 @@ const {
 const auth = require("../middlewares/authenticationMiddleware");
 const authorizationMiddleware = require("../middlewares/authorizationMiddleware")
 
-router.post("/", createUserController);
-router.get("/", auth, authorizationMiddleware(['admin']), getUsersController);
-router.get("/:id", auth, authorizationMiddleware(['admin', 'user']), getUserController);
-router.patch("/:id", auth, authorizationMiddleware(['admin', 'user']), updateUserController);
-router.delete("/:id", auth, authorizationMiddleware(['admin', 'user']), deleteUserController);
+router.post("/register", createUserController);
+router.get("/search", auth, authorizationMiddleware(['admin']), getUsersController);
+router.get("/search/:id", auth, authorizationMiddleware(['admin', 'user']), getUserController);
+router.patch("/update/:id", auth, authorizationMiddleware(['admin', 'user']), updateUserController);
+router.delete("/remove/:id", auth, authorizationMiddleware(['admin', 'user']), deleteUserController);
 
 module.exports = router;

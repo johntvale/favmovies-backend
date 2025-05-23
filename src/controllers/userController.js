@@ -1,9 +1,9 @@
-const { isValidUser } = require("../joiValidators/userValidation");
+const { isValidUser, isValidToUpdateUser } = require("../joiValidators/userValidation");
 const { encrypterPassword } = require("../utils/bcrypt");
 const {
   createUserService,
   getUsersService,
-  getUserByIdService,
+  getByIdUserService,
   updateUserService,
   deleteUserService,
 } = require("../services/userService");
@@ -27,10 +27,7 @@ const createUserController = async (req, res, next) => {
     userPayload.password = encrypterPassword(userPayload.password);
 
     const createdUser = await createUserService(userPayload);
-    res.status(CREATED).json({
-      message: "User created successfully",
-      user: createdUser
-    });
+    res.status(CREATED).json(createdUser);
   } catch (error) {
     next(error);
   }
@@ -39,10 +36,7 @@ const createUserController = async (req, res, next) => {
 const getUsersController = async (_req, res, next) => {
   try {
     const usersList = await getUsersService();
-    res.status(OK).json({
-      message: "Users retrieved successfully",
-      users: usersList
-    });
+    res.status(OK).json(usersList);
   } catch (error) {
     next(error);
   }
@@ -58,20 +52,17 @@ const getUserController = async (req, res, next) => {
       return next(error);
     }
     
-    const user = await getUserByIdService(userId);
+    const user = await getByIdUserService(userId);
 
     if (authenticatedUser) {
-      if (!hasAccess(authenticatedUser, user._id.toString())) {
+      if (!hasAccess(authenticatedUser, user.user._id.toString())) {
         const error = new Error("Access denied");
         error.statusCode = FORBIDDEN;
         return next(error);
       }
     }
 
-    res.status(OK).json({
-      message: "User retrieved successfully",
-      user: user
-    });
+    res.status(OK).json(user);
   } catch (error) {
     next(error);
   }
@@ -81,29 +72,32 @@ const updateUserController = async (req, res, next) => {
   try {
     const userId = req.params.id;
     const authenticatedUser = req.user;
+    const userPayload = req.body;
     
     if (userId.length !== 24) {
       const error = new Error("Invalid user ID format");
       error.statusCode = BAD_REQUEST;
       return next(error);
     }
-    
-    const userPayload = {
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
+
+    if (Object.keys(userPayload).length < 1) {
+      const error = new Error("At least one property is required to update");
+      error.statusCode = BAD_REQUEST;
+      throw error;
+    }
+
+    if (userPayload.password) {
+      userPayload.password = encrypterPassword(userPayload.password);
     }
   
-    const { error } = isValidUser(userPayload);
+    const { error } = isValidToUpdateUser(userPayload);
     if (error) {
       error.statusCode = BAD_REQUEST;
       return next(error);
     }
-  
-    userPayload.password = encrypterPassword(userPayload.password);
 
-    const user = await getUserByIdService(userId);
-    if (!user) {
+    const user = await getByIdUserService(userId);
+    if (!user.user) {
       const error = new Error("User not found");
       error.statusCode = BAD_REQUEST;
       return next(error);
@@ -118,10 +112,7 @@ const updateUserController = async (req, res, next) => {
     }
 
     const updatedUser = await updateUserService(userPayload, userId);
-    res.status(OK).json({
-      message: "User updated successfully",
-      user: updatedUser
-    });
+    res.status(OK).json(updatedUser);
   } catch (error) {
     next(error);
   }
@@ -138,8 +129,8 @@ const deleteUserController = async (req, res, next) => {
       return next(error);
     }
 
-    const user = await getUserByIdService(userId);
-    if (!user) {
+    const user = await getByIdUserService(userId);
+    if (!user.user) {
       const error = new Error("User not found");
       error.statusCode = BAD_REQUEST;
       return next(error);
@@ -154,10 +145,7 @@ const deleteUserController = async (req, res, next) => {
     }
     
     const deletedUser = await deleteUserService(userId);
-    res.status(OK).json({
-      message: "User deleted successfully",
-      user: deletedUser
-    });
+    res.status(OK).json(deletedUser);
   } catch (error) {
     next(error);
   }

@@ -1,5 +1,5 @@
-const { isValidMovie } = require("../joiValidators/movieValidation");
-const { createMovieService, getAllMoviesService, getMovieByIdService, updateMovieService, deleteMovieService, markAsFavoriteMovieService, unmarkFavoriteMovieService, updateViewMovieService, ratingMovieService } = require("../services/movieService");
+const { isValidMovie, isValidToUpdateMovie } = require("../joiValidators/movieValidation");
+const { createMovieService, getAllMoviesService, getByIdMovieService, updateMovieService, deleteMovieService, addOrUpdateViewMovieService, addOrUpdateRatingMovieService } = require("../services/movieService");
 const { BAD_REQUEST, CREATED, OK } = require("../utils/httpStatusCode");
 
 const createMovieController = async (req, res, next) => {
@@ -36,7 +36,7 @@ const getMovieController = async (req, res, next) => {
       throw error;
     }
 
-    const movie = await getMovieByIdService(movieId);
+    const movie = await getByIdMovieService(movieId);
     res.status(OK).json(movie);
   } catch (error) {
     next(error);
@@ -54,7 +54,13 @@ const updateMovieController = async (req, res, next) => {
       throw error;
     }
 
-    const { error } = isValidMovie(movieData);
+    if (Object.keys(movieData).length < 1) {
+      const error = new Error("At least one property is required to update");
+      error.statusCode = BAD_REQUEST;
+      throw error;
+    }
+
+    const { error } = isValidToUpdateMovie(movieData);
     if (error) {
       error.statusCode = BAD_REQUEST;
       throw error;
@@ -83,7 +89,7 @@ const deleteMovieController = async (req, res, next) => {
   }
 }
 
-const markAsFavoriteMovieController = async (req, res, next) => {
+const addOrUpdateViewController = async (req, res, next) => {
   try {
     const userId = req.user.id;
     const movieId = req.params.id;
@@ -94,48 +100,14 @@ const markAsFavoriteMovieController = async (req, res, next) => {
       throw error;
     }
 
-    const updatedMovie = await markAsFavoriteMovieService(userId, movieId);
+    const updatedMovie = await addOrUpdateViewMovieService(userId, movieId);
     res.status(OK).json(updatedMovie);
   } catch (error) {
     next(error);
   }
 }
 
-const unmarkFavoriteMovieController = async (req, res, next) => {
-  try {
-    const userId = req.user.id;
-    const movieId = req.params.id;
-
-    if (movieId.length !== 24) {
-      const error = new Error("Invalid movie ID format");
-      error.statusCode = BAD_REQUEST;
-      throw error;
-    }
-
-    const updatedMovie = await unmarkFavoriteMovieService(userId, movieId);
-    res.status(OK).json(updatedMovie);
-  } catch (error) {
-    next(error);
-  }
-}
-
-const updateViewMovieController = async (req, res, next) => {
-  try {
-    const movieId = req.params.id;
-    if (movieId.length !== 24) {
-      const error = new Error("Invalid movie ID format");
-      error.statusCode = BAD_REQUEST;
-      throw error;
-    }
-
-    const updatedMovie = await updateViewMovieService(movieId);
-    res.status(OK).json(updatedMovie);
-  } catch (error) {
-    next(error);
-  }
-}
-
-const ratingMovieController = async (req, res, next) => {
+const addOrUpdateRatingMovieController = async (req, res, next) => {
   try {
     const userId = req.user.id;
     const movieId = req.params.id;
@@ -146,16 +118,15 @@ const ratingMovieController = async (req, res, next) => {
       error.statusCode = BAD_REQUEST;
       throw error;
     }
-
-    rating = parseFloat(rating);
-
-    if (isNaN(rating) || rating < 0 || rating > 5) {
-      const error = new Error("Rating must be between 1 and 5");
+    if (!rating) {
+      const error = new Error("Rating is required");
       error.statusCode = BAD_REQUEST;
       throw error;
     }
 
-    const updatedMovie = await ratingMovieService(userId, movieId, rating);
+    rating = parseFloat(rating);
+
+    const updatedMovie = await addOrUpdateRatingMovieService(userId, movieId, rating);
     res.status(OK).json(updatedMovie);
   } catch (error) {
     next(error);
@@ -168,8 +139,6 @@ module.exports = {
   getMovieController,
   updateMovieController,
   deleteMovieController,
-  markAsFavoriteMovieController,
-  unmarkFavoriteMovieController,
-  updateViewMovieController,
-  ratingMovieController
+  addOrUpdateViewController,
+  addOrUpdateRatingMovieController
 }

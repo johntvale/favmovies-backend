@@ -1,6 +1,7 @@
 
-const User = require('../models/userModel');
 const { encrypterPassword } = require('../utils/bcrypt');
+const { createUserService } = require('../services/userService');
+const { CONFLICT } = require('../utils/httpStatusCode');
 
 const initUser = async () => {
   const newUser = {
@@ -10,13 +11,15 @@ const initUser = async () => {
     role: process.env.INIT_ROLE,
   };
 
-  const existInitialUser = await User.findOne({ email: newUser.email });
-
-  if (!existInitialUser) {
-    await User.create(newUser);
+  try {
+    await createUserService(newUser);
     console.log('InitialUser created successfully');
-  } else {
-    console.log('InitialUser already exists');
+  } catch (error) {
+    if (error.statusCode === CONFLICT) {
+      console.log('InitialUser already exists');
+    } else {
+      console.error('Error creating InitialUser:', error.message);
+    }
   }
 }
 

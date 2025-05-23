@@ -1,7 +1,7 @@
 const { isValidLogin } = require("../joiValidators/loginValidation");
 const { comparerPassword } = require("../utils/bcrypt");
 const { generateToken } = require("../utils/jwt");
-const { getUserByEmailService } = require("../services/userService");
+const { getByEmailUserService } = require("../services/userService");
 const { NOT_FOUND, UNAUTHORIZED, BAD_REQUEST } = require("../utils/httpStatusCode");
 const FIFTEEN_MINUTES = 15 * 60 * 1000;
 
@@ -18,14 +18,14 @@ const loginController = async (req, res, next) => {
       return next(error);
     }
 
-    const storedUser = await getUserByEmailService(loginPayload.email);
-    if (!storedUser) {
+    const storedUser = await getByEmailUserService(loginPayload.email);
+    if (!storedUser.user) {
       const error = new Error("User not found");
       error.statusCode = NOT_FOUND;
       return next(error);
     }
 
-    const isMatchingPasswords = comparerPassword(loginPayload.password, storedUser.password);
+    const isMatchingPasswords = comparerPassword(loginPayload.password, storedUser.user.password);
     if (!isMatchingPasswords) {
       const error = new Error("Unauthorized: Invalid password");
       error.statusCode = UNAUTHORIZED;
@@ -33,8 +33,10 @@ const loginController = async (req, res, next) => {
     }
     
     const token = generateToken({
-      id: storedUser._id,
-      role: storedUser.role
+      id: storedUser.user._id,
+      name: storedUser.user.name,
+      email: storedUser.user.email,
+      role: storedUser.user.role
     });
 
     res.cookie("token", token, {
@@ -64,4 +66,3 @@ module.exports = {
   loginController,
   logOutController
 };
-

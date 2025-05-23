@@ -7,7 +7,9 @@ const errorHandler = require('./middlewares/errorHandler');
 const userRoutes = require('./routes/userRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const movieRoutes = require('./routes/movieRoutes');
+const userMovieListRoutes = require('./routes/userMovieListRoutes');
 const initUser = require('./config/userInit');
+const { NOT_FOUND } = require('./utils/httpStatusCode');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -29,11 +31,11 @@ app.get('/', (_req, res) => {
 
 app.use('/users', userRoutes);
 app.use('/movies', movieRoutes);
+app.use('/lists', userMovieListRoutes);
 app.use('/auth', loginRoutes);
 
-
 app.use((req, res) => {
-  res.status(404).json({
+  res.status(NOT_FOUND).json({
     error: 'Rota não encontrada',
     path: req.originalUrl
   });
