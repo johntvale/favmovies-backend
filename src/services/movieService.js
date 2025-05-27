@@ -258,7 +258,7 @@ const addOrUpdateViewMovieService = async (userId, movieId) => {
     throw error
   }
 
-  const updatedMovie = await Movie.findById(movieId).populate('view.user')
+  const updatedMovie = await Movie.findById(movieId)
   if (!updatedMovie) {
     const error = new Error("Movie update failed")
     error.statusCode = INTERNAL_SERVER_ERROR
@@ -311,7 +311,7 @@ const addOrUpdateRatingMovieService = async (userId, movieId, score) => {
   movie.averageRating = average;
   await movie.save();
 
-  const updatedMovie = await Movie.findById(movieId).populate('ratings.user');
+  const updatedMovie = await Movie.findById(movieId)
   if (!updatedMovie) {
     const error = new Error("Movie update failed");
     error.statusCode = INTERNAL_SERVER_ERROR;

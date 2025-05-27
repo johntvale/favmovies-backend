@@ -38,7 +38,7 @@ const addToFavoriteListService = async (userId, movieId) => {
     throw error;
   }
 
-  const updatedList = await User.findById(userId).populate('favoriteList');
+  const updatedList = await User.findById(userId)
   if (!updatedList.favoriteList) {
     const error = new Error('Error fetching updated favorite list');
     error.statusCode = CONFLICT;
@@ -93,7 +93,7 @@ const removeFromFavoriteListService = async (userId, movieId) => {
     throw error;
   }
 
-  const removedFromList = await User.findById(userId).populate('favoriteList');
+  const removedFromList = await User.findById(userId)
   if (!removedFromList) {
     const error = new Error('Error fetching updated favorite list');
     error.statusCode = CONFLICT;
@@ -150,7 +150,7 @@ const addToWatchedListService = async (userId, movieId) => {
     throw error;
   }
 
-  const updatedList = await User.findById(userId).populate('watchedList')
+  const updatedList = await User.findById(userId)
   if (!updatedList) {
     const error = new Error('Error fetching updated watched list');
     error.statusCode = CONFLICT;
@@ -199,7 +199,7 @@ const removeFromWatchedListService = async (userId, movieId) => {
     throw error;
   }
 
-  const updatedList = User.findById(userId).populate('watchedList')
+  const updatedList = User.findById(userId)
   if (!updatedList) {
     const error = new Error('Error fetching updated watch list');
     error.statusCode = CONFLICT;
@@ -248,7 +248,7 @@ const addToWatchLaterListService = async (userId, movieId) => {
     throw error;
   }
 
-  const updatedList = await User.findById(userId).populate('watchLaterList');
+  const updatedList = await User.findById(userId)
   if (!updatedList) {
     const error = new Error('Error fetching updated watch later list');
     error.statusCode = CONFLICT;
@@ -298,7 +298,7 @@ const removeFromWatchLaterListService = async (userId, movieId) => {
   }
 
   const updatedList = await User.findById(userId)
-    .populate('watchLaterList');
+    
   if (!updatedList) {
     const error = new Error('Error fetching updated watch later list');
     error.statusCode = CONFLICT;
