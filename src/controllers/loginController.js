@@ -1,7 +1,7 @@
 const { isValidLogin } = require("../joiValidators/loginValidation");
 const { comparerPassword } = require("../utils/bcrypt");
-const { generateToken } = require("../utils/jwt");
-const { getByEmailUserService } = require("../services/userService");
+const { generateToken, verifyToken } = require("../utils/jwt");
+const { getByEmailUserService, getByIdUserService } = require("../services/userService");
 const { NOT_FOUND, UNAUTHORIZED, BAD_REQUEST } = require("../utils/httpStatusCode");
 const FIFTEEN_MINUTES = 15 * 60 * 1000;
 
@@ -62,7 +62,44 @@ const logOutController = async (_req, res, next) => {
   }
 }
 
+const loggedInController = async (req, res, next) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      const error = new Error("Unauthorized: No token provided");
+      error.statusCode = UNAUTHORIZED;
+      return next(error);
+    }
+    const decodedUser = verifyToken(token);
+    if (!decodedUser) {
+      const error = new Error("Unauthorized: Invalid token");
+      error.statusCode = UNAUTHORIZED;
+      return next(error);
+    }
+
+    const userLoggedIn = await getByIdUserService(decodedUser.id);
+    if (!userLoggedIn.user) {
+      const error = new Error("User not found");
+      error.statusCode = NOT_FOUND;
+      return next(error);
+    }
+
+    res.status(200).json({
+      message: "User logged in successfully!",
+      user: {
+        id: userLoggedIn.user._id,
+        name: userLoggedIn.user.name,
+        email: userLoggedIn.user.email,
+        role: userLoggedIn.user.role
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   loginController,
-  logOutController
+  logOutController,
+  loggedInController
 };

@@ -82,23 +82,27 @@ Para testes via Postman, habilite o uso de cookies automaticamente após login.
   - **URL:** `/auth/login`  
   - **Método:** `POST`  
 
-3. **Logout**  
+3. **Me**
+  - **URL:** `/auth/Me`
+  - **Método:** `GET`
+
+4. **Logout**  
   - **URL:** `/auth//logout`  
   - **Método:** `POST`  
 
-4. **Buscar Todos os Usuários**  
+5. **Buscar Todos os Usuários**  
   - **URL:** `/users/search`  
   - **Método:** `GET`  
 
-5. **Buscar Usuário por ID**  
+6. **Buscar Usuário por ID**  
   - **URL:** `/users/search/:id`  
   - **Método:** `GET`  
 
-6. **Atualizar Usuário**  
+7. **Atualizar Usuário**  
   - **URL:** `/users/update/:id`  
   - **Método:** `PATCH`  
 
-7. **Remover Usuário**  
+8. **Remover Usuário**  
   - **URL:** `/users/remove/:id`  
   - **Método:** `DELETE`  
 
@@ -258,7 +262,32 @@ Resposta 404: `"User not found"`
 
 ---
 
-#### 📤 3. Logout
+#### 📥 3. Me
+- **URL:** `/auth/me`  
+- **Método:** `GET`  
+- **Autenticação:** ✅ Requer cookie token
+
+##### Body (JSON):
+```json
+{}
+```
+
+##### ✅ Resposta 200:
+```json
+{
+  "message": "User logged in successfully!",
+  "user": {
+    "id": "663d74b1e7f06a90b25f2334",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "role": "user"
+  }
+}
+```
+
+---
+
+#### 📤 4. Logout
 - **URL:** `/auth/logout`  
 - **Método:** `POST`  
 - **Autenticação:** ✅ Requer cookie token  
@@ -272,7 +301,7 @@ Resposta 404: `"User not found"`
 
 ---
 
-#### 👥 4. Buscar Todos os Usuários
+#### 👥 5. Buscar Todos os Usuários
 - **URL:** `/users/search`  
 - **Método:** `GET`  
 - **Autenticação:** ✅ Requer cookie token  
@@ -295,7 +324,7 @@ Resposta 404: `"User not found"`
 
 ---
 
-#### 👤 5. Buscar Usuário por ID
+#### 👤 6. Buscar Usuário por ID
 - **URL:** `/users/search/:id`  
 - **Método:** `GET`  
 - **Autenticação:** ✅ Requer cookie token  
@@ -324,7 +353,7 @@ Resposta 403: `"Access denied"`
 
 ---
 
-#### ✏️ 6. Atualizar Usuário
+#### ✏️ 7. Atualizar Usuário
 - **URL:** `/users/update/:id`  
 - **Método:** `PATCH`  
 - **Autenticação:** ✅ Requer cookie token  
@@ -361,7 +390,7 @@ Resposta 403: `"Access denied"`
 
 ---
 
-#### 🗑️ 7. Remover Usuário
+#### 🗑️ 8. Remover Usuário
 - **URL:** `/users/remove/:id`  
 - **Método:** `DELETE`  
 - **Autenticação:** ✅ Requer cookie token  
