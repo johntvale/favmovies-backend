@@ -5,6 +5,7 @@ const formatMovie = (movie) => ({
   category: movie.category,
   releaseDate: movie.releaseDate,
   director: movie.director,
+  trailerUrl: movie.trailerUrl,
   imageUrl: movie.imageUrl,
   cast: movie.cast,
   averageRating: movie.averageRating,

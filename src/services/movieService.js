@@ -25,6 +25,23 @@ const createMovieService = async (movieData) => {
   return result
 }
 
+const insertManyMoviesService = async (movieList) => {
+  const insertedMovieList = await Movie.insertMany(movieList);
+
+  if (!insertedMovieList || insertedMovieList.length === 0) {
+    const error = new Error("Movies insertion failed");
+    error.statusCode = INTERNAL_SERVER_ERROR;
+    throw error;
+  }
+
+  const result = {
+    "message": "Movies inserted successfully",
+    "movies": insertedMovieList
+  };
+
+  return result;
+}
+
 const getAllMoviesService = async () => {
   const moviesList = await Movie.find()
   if (!moviesList) {
@@ -329,6 +346,7 @@ const addOrUpdateRatingMovieService = async (userId, movieId, score) => {
 
 module.exports = {
   createMovieService,
+  insertManyMoviesService,
   getAllMoviesService,
   getByIdMovieService,
   updateMovieService,

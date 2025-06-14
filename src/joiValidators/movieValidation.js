@@ -42,6 +42,13 @@ const movieSchema = Joi.object({
       'string.min': 'Director name must be at least 2 characters long',
       'string.max': 'Director name must be less than 100 characters long'
     }),
+    trailerUrl: Joi.string()
+      .uri()
+      .required()
+      .messages({
+        'string.uri': 'Trailer URL must be a valid URI',
+        'string.empty': 'Trailer URL cannot be empty'
+      }),
   imageUrl: Joi.string()
     .uri()
     .required()
@@ -139,6 +146,12 @@ const movieToUpdateSchema = Joi.object({
       'string.min': 'Director name must be at least 2 characters long',
       'string.max': 'Director name must be less than 100 characters long'
     }),
+  trailerUrl: Joi.string()
+    .uri()
+    .messages({
+      'string.uri': 'Image URL must be a valid URI',
+      'string.empty': 'Image URL cannot be empty'
+    }),
   imageUrl: Joi.string()
     .uri()
     .messages({
@@ -199,6 +212,7 @@ const movieToUpdateSchema = Joi.object({
 });
 
 const isValidMovie = (movieData) => {
+  console.log(movieSchema.validate(movieData, { abortEarly: false }));
   return movieSchema.validate(movieData, { abortEarly: false });
 }
 

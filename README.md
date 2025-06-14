@@ -434,6 +434,7 @@ Resposta 403: `"Access denied"`
   "movies": ["Suspense"],
   "releaseDate": "2024-10-31T00:00:00.000Z",
   "director": "Lucas Mendes",
+  "trailerUrl": "https://example.com/images/enigma.jpg",
   "imageUrl": "https://example.com/images/enigma.jpg",
   "cast": ["Joana Prado", "Carlos Silveira", "Marta Lopes"]
 }

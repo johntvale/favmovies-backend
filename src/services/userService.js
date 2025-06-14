@@ -37,6 +37,23 @@ const createUserService = async (userData) => {
   return result;
 }
 
+const insertManyUsersService = async (userList) => {
+  const insertedUserList = await User.insertMany(userList);
+
+  if (!insertedUserList || insertedUserList.length === 0) {
+    const error = new Error("Users insertion failed");
+    error.statusCode = INTERNAL_SERVER_ERROR;
+    throw error;
+  }
+
+  const result = {
+    "message": "Users inserted successfully",
+    "users": insertedUserList
+  };
+
+  return result;
+}
+
 const getUsersService = async () => {
   const users = await User.find();
   const basicUserList = users.map(user => {
@@ -171,6 +188,7 @@ const deleteUserService = async (userId) => {
 
 module.exports = {
   createUserService,
+  insertManyUsersService,
   getUsersService,
   getByIdUserService,
   getByEmailUserService,
