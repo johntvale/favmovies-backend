@@ -4,6 +4,6 @@ const { getInsightsController } = require("../controllers/insightsController");
 const auth = require("../middlewares/authenticationMiddleware");
 const authorizationMiddleware = require("../middlewares/authorizationMiddleware");
 
-router.get("/dashboard", auth, authorizationMiddleware(['admin']), getInsightsController);
+router.get("/", auth, authorizationMiddleware(['admin']), getInsightsController);
 
 module.exports = router;

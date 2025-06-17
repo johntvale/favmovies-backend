@@ -1,57 +1,94 @@
 const User = require("../models/userModel");
 const Movie = require("../models/movieModel");
 
+const getRandomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
+
+const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
+
 async function populateMovieAndUserData() {
   const users = await User.find();
   const movies = await Movie.find();
 
-  // Ignora o admin
   const nonAdminUsers = users.filter(user => user.role !== 'admin');
   const userIds = nonAdminUsers.map(user => user._id);
   const movieIds = movies.map(movie => movie._id);
 
-  // Define quantidades fixas para atender aos requisitos
-  const moviesToView = movies.slice(0, Math.ceil(movies.length * 0.9));
-  const moviesToFavorite = movies.slice(0, Math.ceil(movies.length * 0.8));
-  const moviesToRate = movies.slice(0, Math.ceil(movies.length * 0.8));
+  // Quantidades fixas
+  const totalMovies = movies.length;
+  const viewCountTarget = Math.floor(totalMovies * 0.9);
+  const favoriteCountTarget = Math.floor(totalMovies * 0.8);
+  const ratingCountTarget = Math.floor(totalMovies * 0.8);
+
+  const shuffledMovies = shuffle([...movies]);
+
+  const moviesWithView = shuffledMovies.slice(0, viewCountTarget);
+  const moviesWithFavorite = shuffledMovies.slice(0, favoriteCountTarget);
+  const moviesWithRating = shuffledMovies.slice(0, ratingCountTarget);
 
   // Atualiza dados nos filmes
   for (const movie of movies) {
-    const viewUsers = moviesToView.includes(movie) ? userIds : [];
-    const favoriteUsers = moviesToFavorite.includes(movie) ? userIds.slice(0, 4) : [];
-    const ratingUsers = moviesToRate.includes(movie) ? userIds.slice(0, 4) : [];
+    const views = [];
+    const favorites = [];
+    const ratings = [];
 
-    // Views (alguns com 20 visualizações)
-    movie.view = viewUsers.map((userId, i) => ({
-      user: userId,
-      view: i < 2 ? 20 : 1
-    }));
-    movie.viewCount = movie.view.reduce((sum, entry) => sum + entry.view, 0);
+    // Visualizações
+    if (moviesWithView.includes(movie)) {
+      const viewUsers = shuffle([...userIds]).slice(0, getRandomInt(3, userIds.length));
+      for (const userId of viewUsers) {
+        views.push({
+          user: userId,
+          view: getRandomInt(1, 5),
+        });
+      }
+    }
+
+    movie.view = views;
+    movie.viewCount = views.reduce((sum, v) => sum + v.view, 0);
 
     // Favoritos
-    movie.favorite = favoriteUsers.map(userId => ({
-      user: userId,
-      favorite: true
-    }));
-    movie.favoriteCount = favoriteUsers.length;
+    if (moviesWithFavorite.includes(movie)) {
+      const favUsers = shuffle([...userIds]).slice(0, getRandomInt(3, 10));
+      for (const userId of favUsers) {
+        favorites.push({ user: userId, favorite: true });
+      }
+    }
 
-    // Ratings (notas fixas)
-    movie.ratings = ratingUsers.map((userId, i) => ({
-      user: userId,
-      score: 3 + (i % 3) // 3, 4, 5, 3
-    }));
-    movie.averageRating = movie.ratings.length
-      ? (movie.ratings.reduce((sum, r) => sum + r.score, 0) / movie.ratings.length).toFixed(1)
+    movie.favorite = favorites;
+    movie.favoriteCount = favorites.length;
+
+    // Avaliações
+    if (moviesWithRating.includes(movie)) {
+      const rateUsers = shuffle([...userIds]).slice(0, getRandomInt(3, 10));
+      for (const userId of rateUsers) {
+        const score = getRandomInt(1, 5);
+        ratings.push({ user: userId, score });
+      }
+    }
+
+    movie.ratings = ratings;
+    movie.averageRating = ratings.length
+      ? (ratings.reduce((sum, r) => sum + r.score, 0) / ratings.length).toFixed(1)
       : 0;
 
     await movie.save();
   }
 
-  // Atualiza dados nos usuários
+  // Atualiza listas dos usuários
   for (const user of nonAdminUsers) {
-    user.watchedList = movieIds.slice(0, 3);
-    user.favoriteList = movieIds.slice(0, 3);
-    user.watchLaterList = movieIds.slice(3, 6);
+    const shuffled = shuffle([...movieIds]);
+
+    const watchedCount = getRandomInt(3, 8);
+    const favoriteCount = getRandomInt(2, 6);
+    const watchLaterCount = getRandomInt(2, 5);
+
+    const watchedList = shuffled.slice(0, watchedCount);
+    const favoriteList = shuffled.slice(watchedCount, watchedCount + favoriteCount);
+    const watchLaterList = shuffled.slice(watchedCount + favoriteCount, watchedCount + favoriteCount + watchLaterCount);
+
+    user.watchedList = watchedList;
+    user.favoriteList = favoriteList;
+    user.watchLaterList = watchLaterList;
 
     await user.save();
   }
@@ -60,10 +97,10 @@ async function populateMovieAndUserData() {
 const dashboardInit = async () => {
   try {
     await populateMovieAndUserData();
-    console.log('Dashboard initialized successfully');
+    console.log('Dashboard inicializado com sucesso');
   } catch (error) {
-    console.error('Error initializing Movie List:', error.message);
+    console.error('Erro ao inicializar o Dashboard:', error.message);
   }
-}
+};
 
 module.exports = dashboardInit;

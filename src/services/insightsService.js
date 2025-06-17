@@ -1,4 +1,3 @@
-// insightsService.js
 const Movie = require('../models/movieModel');
 
 const startOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
@@ -66,7 +65,7 @@ async function getDashboardInsights() {
 
   const overallRatingAverage = await Movie.aggregate([
     { $match: { averageRating: { $gt: 0 } } },
-    { $group: { _id: null, avarage: { $avg: "$averageRating" } } }
+    { $group: { _id: null, averageRating: { $avg: "$averageRating" } } }
   ]);
 
   const userWhoRatedTheMostMovies = await Movie.aggregate([
@@ -81,31 +80,33 @@ async function getDashboardInsights() {
 
   const result = {
     message: "insights successfully generated",
-    favorites: {
-      top3Favorites,
-      favoriteMovieOfTheMonth,
-      miniCards: {
-        totalMovies,
-        totalFavorites: totalFavorites[0]?.total || 0,
-        percentageOfFavorited
-      }
-    },
-    watched: {
-      top3MostWatched,
-      mostWatchedOfTheMonth,
-      miniCards: {
-        totalViews: totalViews[0]?.total || 0,
-        percentageOfWatchedMovies,
-        userWhoWatchedTheMostMovies: userWhoWatchedTheMostMovies[0] || null
-      }
-    },
-    ratings: {
-      top3Ratings,
-      userWithHighestEngagement: userWithHighestEngagement[0] || null,
-      miniCards: {
-        totalRatings: totalRatings[0]?.total || 0,
-        mediaGeral: overallRatingAverage[0]?.media?.toFixed(2) || 0,
-        userWhoRatedTheMostMovies: userWhoRatedTheMostMovies[0] || null
+    insights: {
+      favorites: {
+        top3Favorites,
+        favoriteMovieOfTheMonth,
+        miniCards: {
+          totalMovies,
+          totalFavorites: totalFavorites[0]?.total || 0,
+          percentageOfFavorited
+        }
+      },
+      watched: {
+        top3MostWatched,
+        mostWatchedOfTheMonth,
+        miniCards: {
+          totalViews: totalViews[0]?.total || 0,
+          percentageOfWatchedMovies,
+          userWhoWatchedTheMostMovies: userWhoWatchedTheMostMovies[0] || null
+        }
+      },
+      ratings: {
+        top3Ratings,
+        userWithHighestEngagement: userWithHighestEngagement[0] || null,
+        miniCards: {
+          totalRatings: totalRatings[0]?.total || 0,
+          overallRatingAverage: overallRatingAverage[0]?.averageRating?.toFixed(2) || 0,
+          userWhoRatedTheMostMovies: userWhoRatedTheMostMovies[0] || null
+        }
       }
     }
   };
