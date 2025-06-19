@@ -6,23 +6,59 @@ async function getDashboardInsights() {
   // FAVORITES
   const top3Favorites = await Movie.find().sort({ favoriteCount: -1 }).limit(3);
 
-  const favoriteMovieOfTheMonth = await Movie.findOne({
-    createdAt: { $gte: startOfMonth }
-  }).sort({ favoriteCount: -1 });
+  const mostFavoriteMovieOfTheMonth = await Movie.aggregate([
+    { $unwind: '$favorite' },
+    {
+      $match: {
+        'favorite.createdAt': { $gte: startOfMonth },
+        'favorite.favorite': true
+      }
+    },
+    {
+      $group: {
+        _id: '$_id',
+        title: { $first: '$title' },
+        imageUrl: { $first: '$imageUrl' },
+        monthlyFavorites: { $sum: 1 }
+      }
+    },
+    { $sort: { monthlyFavorites: -1 } },
+    { $limit: 1 },
+    { $project: { _id: 1, title: 1, imageUrl: 1, favoriteCount: "$monthlyFavorites" } }
+  ]);
 
   const totalMovies = await Movie.countDocuments();
+
   const totalFavorites = await Movie.aggregate([
     { $group: { _id: null, total: { $sum: "$favoriteCount" } } },
   ]);
+
   const moviesMarkedAsFavorite = await Movie.countDocuments({ favoriteCount: { $gt: 0 } });
+  
   const percentageOfFavorited = totalMovies > 0 ? ((moviesMarkedAsFavorite / totalMovies) * 100).toFixed(2) : 0;
 
   // WATCHED
   const top3MostWatched = await Movie.find().sort({ viewCount: -1 }).limit(3);
 
-  const mostWatchedOfTheMonth = await Movie.findOne({
-    createdAt: { $gte: startOfMonth }
-  }).sort({ viewCount: -1 });
+  const mostWatchedOfTheMonth = await Movie.aggregate([
+    { $unwind: '$view' },
+    {
+      $match: {
+        'view.createdAt': { $gte: startOfMonth }
+      }
+    },
+    {
+      $group: {
+        _id: '$_id',
+        title: { $first: '$title' },
+        imageUrl: { $first: '$imageUrl' },
+        monthlyViews: { $sum: '$view.view' }
+      }
+    },
+    { $sort: { monthlyViews: -1 } },
+    { $limit: 1 },
+    { $project: { _id: 1, title: 1, imageUrl: 1, viewCount: "$monthlyViews" } }
+  ]);
 
   const totalViews = await Movie.aggregate([
     { $group: { _id: null, total: { $sum: "$viewCount" } } },
@@ -44,18 +80,25 @@ async function getDashboardInsights() {
   // RATINGS
   const top3Ratings = await Movie.find({ averageRating: { $gt: 0 } }).sort({ averageRating: -1 }).limit(3);
 
-  const userWithHighestEngagement = await Movie.aggregate([
+  const mostRatedMovieOfTheMonth = await Movie.aggregate([
+    { $unwind: '$ratings' },
     {
-      $project: {
-        title: 1,
-        engagement: {
-          $add: ["$viewCount", "$favoriteCount", { $size: "$ratings" }]
-        },
-        averageRating: 1
+      $match: {
+        'ratings.createdAt': { $gte: startOfMonth }
       }
     },
-    { $sort: { engagement: -1 } },
-    { $limit: 1 }
+    {
+      $group: {
+        _id: '$_id',
+        title: { $first: '$title' },
+        imageUrl: { $first: '$imageUrl' },
+        averageMonthlyRating: { $avg: '$ratings.score' },
+        totalRatings: { $sum: 1 }
+      }
+    },
+    { $sort: { averageMonthlyRating: -1, totalRatings: -1 } },
+    { $limit: 1 },
+    { $project: { _id: 1, title: 1, imageUrl: 1, averageRating: "$averageMonthlyRating" } }
   ]);
 
   const totalRatings = await Movie.aggregate([
@@ -83,10 +126,10 @@ async function getDashboardInsights() {
     insights: {
       favorites: {
         top3Favorites,
-        favoriteMovieOfTheMonth,
+        mostFavoriteMovieOfTheMonth,
         miniCards: {
           totalMovies,
-          totalFavorites: totalFavorites[0]?.total || 0,
+          totalFavoriteMarks: totalFavorites[0]?.total || 0,
           percentageOfFavorited
         }
       },
@@ -101,7 +144,7 @@ async function getDashboardInsights() {
       },
       ratings: {
         top3Ratings,
-        userWithHighestEngagement: userWithHighestEngagement[0] || null,
+        mostRatedMovieOfTheMonth,
         miniCards: {
           totalRatings: totalRatings[0]?.total || 0,
           overallRatingAverage: overallRatingAverage[0]?.averageRating?.toFixed(2) || 0,

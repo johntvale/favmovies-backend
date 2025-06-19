@@ -45,6 +45,10 @@ const movieSchema = new mongoose.Schema({
         max: 5,
         required: true
       },
+      createdAt: {
+        type: Date,
+        default: Date.now
+      }
     }
   ],
   averageRating: {
@@ -62,6 +66,10 @@ const movieSchema = new mongoose.Schema({
         type: Boolean,
         required: true
       },
+      createdAt: {
+        type: Date,
+        default: Date.now
+      }
     }
   ],
   favoriteCount: {
@@ -79,6 +87,10 @@ const movieSchema = new mongoose.Schema({
         type: Number,
         required: true
       },
+      createdAt: {
+        type: Date,
+        default: Date.now
+      }
     }
   ],
   viewCount: {

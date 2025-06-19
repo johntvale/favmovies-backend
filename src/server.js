@@ -12,7 +12,7 @@ const insightsRoutes = require('./routes/insightsRoutes');
 const { NOT_FOUND } = require('./utils/httpStatusCode');
 const userListInit = require('./config/userListInit');
 const movieListInit = require('./config/movieListInit');
-const dashboardInit = require('./config/dashboardInit');
+const insightsDataInit = require('./config/insightsDataInit');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -29,7 +29,7 @@ connectDB().then(async () => {
   console.log('Database connected successfully');
   await userListInit();
   await movieListInit();
-  await dashboardInit();
+  await insightsDataInit();
 }).catch((error) => {
   console.error('Error connecting to database: ', error);
 });

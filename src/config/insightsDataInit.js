@@ -94,7 +94,7 @@ async function populateMovieAndUserData() {
   }
 }
 
-const dashboardInit = async () => {
+const insightsDataInit = async () => {
   try {
     await populateMovieAndUserData();
     console.log('Dashboard inicializado com sucesso');
@@ -103,4 +103,4 @@ const dashboardInit = async () => {
   }
 };
 
-module.exports = dashboardInit;
+module.exports = insightsDataInit;
