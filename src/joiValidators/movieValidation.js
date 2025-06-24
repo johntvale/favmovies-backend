@@ -42,13 +42,13 @@ const movieSchema = Joi.object({
       'string.min': 'Director name must be at least 2 characters long',
       'string.max': 'Director name must be less than 100 characters long'
     }),
-    trailerUrl: Joi.string()
-      .uri()
-      .required()
-      .messages({
-        'string.uri': 'Trailer URL must be a valid URI',
-        'string.empty': 'Trailer URL cannot be empty'
-      }),
+  trailerUrl: Joi.string()
+    .uri()
+    .required()
+    .messages({
+      'string.uri': 'Trailer URL must be a valid URI',
+      'string.empty': 'Trailer URL cannot be empty'
+    }),
   imageUrl: Joi.string()
     .uri()
     .required()
