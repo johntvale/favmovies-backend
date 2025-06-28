@@ -104,7 +104,7 @@ const updateUserController = async (req, res, next) => {
     }
 
     if (authenticatedUser) {
-      if (!hasAccess(authenticatedUser, user._id.toString())) {
+      if (!hasAccess(authenticatedUser, user.user._id.toString())) {
         const error = new Error("Access denied");
         error.statusCode = FORBIDDEN;
         return next(error);

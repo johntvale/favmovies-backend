@@ -127,7 +127,7 @@ const updateUserService = async (userData, userId) => {
 
   if (userData.email) {
     const isNotUniqueEmail = await User.findOne({ email: userData.email });
-    if (isNotUniqueEmail && isNotUniqueEmail._id.toString() !== userId) {
+    if (isNotUniqueEmail && isNotUniqueEmail._id?.toString() !== userId) {
       const error = new Error("Email already exists");
       error.statusCode = CONFLICT;
       throw error;
