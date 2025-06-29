@@ -212,7 +212,6 @@ const movieToUpdateSchema = Joi.object({
 });
 
 const isValidMovie = (movieData) => {
-  console.log(movieSchema.validate(movieData, { abortEarly: false }));
   return movieSchema.validate(movieData, { abortEarly: false });
 }
 

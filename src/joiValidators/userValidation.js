@@ -23,7 +23,7 @@ const userValidationSchema = Joi.object({
     }),
   password: Joi.string()
     .min(6)
-    .max(20)
+    .max(30)
     .required()
     .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,30}$/)
     .messages({
@@ -55,7 +55,7 @@ const userUpdateValidationSchema = Joi.object({
     }),
   password: Joi.string()
     .min(6)
-    .max(20)
+    .max(30)
     .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,30}$/)
     .messages({
       'string.base': 'Password must be a string.',

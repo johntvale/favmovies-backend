@@ -73,6 +73,8 @@ const updateUserController = async (req, res, next) => {
     const userId = req.params.id;
     const authenticatedUser = req.user;
     const userPayload = req.body;
+
+    console.log(userPayload);
     
     if (userId.length !== 24) {
       const error = new Error("Invalid user ID format");
@@ -85,15 +87,15 @@ const updateUserController = async (req, res, next) => {
       error.statusCode = BAD_REQUEST;
       throw error;
     }
-
-    if (userPayload.password) {
-      userPayload.password = encrypterPassword(userPayload.password);
-    }
   
     const { error } = isValidToUpdateUser(userPayload);
     if (error) {
       error.statusCode = BAD_REQUEST;
       return next(error);
+    }
+
+    if (userPayload.password) {
+      userPayload.password = encrypterPassword(userPayload.password);
     }
 
     const user = await getByIdUserService(userId);
