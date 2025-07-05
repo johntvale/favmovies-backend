@@ -1,15 +1,14 @@
-
 # 📘 Documentação da API FavMovies
 
-Backend da aplicação de Trailers de Filmes.  
-Esta API permite o gerenciamento e disponibilização de Filmes, Categorias, Listas de Filmes e Usuários.  
-A API possui middlewares de Autenticação e Autorização, com controle de acesso por roles (usuário e admin) via Cookie Token utilizando JWT.  
+Backend da aplicação de Trailers de Filmes.
+Esta API permite o gerenciamento e disponibilização de Filmes, Categorias, Listas de Filmes e Usuários.
+A API possui middlewares de Autenticação e Autorização, com controle de acesso por roles (usuário e admin) via Cookie Token utilizando JWT.
 
-Usuários logados poderão:  
-- Listar e conhecer os filmes adicionados na plataforma.  
-- Assistir aos trailers.  
-- Avaliar os filmes que desejar.  
-- Adicioná-los às suas Listas de Filmes (Favoritos, Assistidos ou Assistir mais tarde).  
+Usuários logados poderão:
+- Listar e conhecer os filmes adicionados na plataforma.
+- Assistir aos trailers.
+- Avaliar os filmes que desejar.
+- Adicioná-los às suas Listas de Filmes (Favoritos, Assistidos ou Assistir mais tarde).
 
 Admins poderão gerenciar Usuários, Filmes e Categorias.
 
@@ -17,24 +16,24 @@ Admins poderão gerenciar Usuários, Filmes e Categorias.
 
 ## 🔧 Tecnologias
 
-- Node.js  
-- Express.js  
-- MongoDB  
-- Mongoose  
-- JWT (JSON Web Token)  
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT (JSON Web Token)
 - bcrypt
-- cookie-parser  
+- cookie-parser
 - JOI Validations
-- Docker  
+- Docker
 
 ---
 
 ## 📌 Requisitos
 
-- Node.js 18+  
-- Docker (para executar MongoDB localmente)  
-- MongoDB (pode ser via Docker)  
-- Variáveis de ambiente configuradas (ver `.env.example`)  
+- Node.js 18+
+- Docker (para executar MongoDB localmente)
+- MongoDB (pode ser via Docker)
+- Variáveis de ambiente configuradas (ver `.env.example`)
 
 ---
 
@@ -64,7 +63,7 @@ npm run dev
 
 ## 🔐 Autenticação
 
-A maioria dos endpoints requer token JWT no cookie `token`. O login gera esse cookie.  
+A maioria dos endpoints requer token JWT no cookie `token`. O login gera esse cookie.
 Para testes via Postman, habilite o uso de cookies automaticamente após login.
 
 ---
@@ -73,105 +72,128 @@ Para testes via Postman, habilite o uso de cookies automaticamente após login.
 
 ### Lista de Endpoints Disponíveis
 
+#### 🔐 Autenticação
+| Endpoint            | Método   | Descrição                     |
+| ------------------- | -------- | ----------------------------- |
+| `/auth/login`       | `POST`   | Login (Geração de token)      |
+| `/auth/me`          | `GET`    | Obter dados do usuário logado |
+| `/auth/logout`      | `POST`   | Logout (Remoção de token)     |
+
 #### 👥 Usuários
-1. **Registrar Usuário**  
-  - **URL:** `/users/register`  
-  - **Método:** `POST`  
-
-2. **Login**  
-  - **URL:** `/auth/login`  
-  - **Método:** `POST`  
-
-3. **Me**
-  - **URL:** `/auth/Me`
-  - **Método:** `GET`
-
-4. **Logout**  
-  - **URL:** `/auth//logout`  
-  - **Método:** `POST`  
-
-5. **Buscar Todos os Usuários**  
-  - **URL:** `/users/search`  
-  - **Método:** `GET`  
-
-6. **Buscar Usuário por ID**  
-  - **URL:** `/users/search/:id`  
-  - **Método:** `GET`  
-
-7. **Atualizar Usuário**  
-  - **URL:** `/users/update/:id`  
-  - **Método:** `PATCH`  
-
-8. **Remover Usuário**  
-  - **URL:** `/users/remove/:id`  
-  - **Método:** `DELETE`  
-
----
+| Endpoint            | Método   | Descrição                     |
+| ------------------- | -------- | ----------------------------- |
+| `/users/register`   | `POST`   | Registrar Usuário             |
+| `/users/search`     | `GET`    | Buscar Todos os Usuários      |
+| `/users/search/:id` | `GET`    | Buscar Usuário por ID         |
+| `/users/update/:id` | `PATCH`  | Atualizar Usuário             |
+| `/users/remove/:id` | `DELETE` | Remover Usuário               |
 
 #### 🎥 Filmes
-1. **Registrar Filme**  
-  - **URL:** `/movies/register`  
-  - **Método:** `POST`  
-
-2. **Buscar Todos os Filmes**  
-  - **URL:** `/movies/search`  
-  - **Método:** `GET`  
-
-3. **Buscar Filme por ID**  
-  - **URL:** `/movies/search/:id`  
-  - **Método:** `GET`  
-
-4. **Atualizar Filme**  
-  - **URL:** `/movies/update/:id`  
-  - **Método:** `PATCH`  
-
-5. **Remover Filme**  
-  - **URL:** `/movies/remove/:id`  
-  - **Método:** `DELETE`  
-
-6. **Adicionar/Atualizar Visualização de Filme**
-  - **URL:** `/movies/update/view/:id`
-  - **Método:** `PATCH`
-
-7. **Adicionar/Atualizar Avaliação de Filme**
-  - **URL:** `/movies/update/rating/:id`
-  - **Método:** `PATCH`
-
----
+| Endpoint                    | Método   | Descrição                                 |
+| --------------------------- | -------- | ----------------------------------------- |
+| `/movies/register`          | `POST`   | Registrar Filme                           |
+| `/movies/search`            | `GET`    | Buscar Todos os Filmes                    |
+| `/movies/search/:id`        | `GET`    | Buscar Filme por ID                       |
+| `/movies/update/:id`        | `PATCH`  | Atualizar Filme                           |
+| `/movies/remove/:id`        | `DELETE` | Remover Filme                             |
+| `/movies/update/view/:id`   | `PATCH`  | Adicionar/Atualizar Visualização de Filme |
+| `/movies/update/rating/:id` | `PATCH`  | Adicionar/Atualizar Avaliação de Filme    |
 
 #### ⭐ Listas de Filmes do Usuário
-1. **Adicionar filme à lista de Filmes Favoritos**  
-  - **URL:** `/lists/update/favorite/:id`  
-  - **Método:** `PATCH`  
+| Endpoint                               | Método  | Descrição                                      |
+| -------------------------------------- | ------- | ---------------------------------------------- |
+| `/lists/update/favorite/:id`           | `PATCH` | Adicionar filme à lista de Filmes Favoritos    |
+| `/lists/update/remove-favorite/:id`    | `PATCH` | Remover filme da lista de Filmes Favoritos     |
+| `/lists/update/watched:id`             | `PATCH` | Adicionar filme à lista de Filmes Assistidos   |
+| `/lists/update/remove-watched/:id`     | `PATCH` | Remover filme da lista de Filmes Assistidos    |
+| `/lists/update/watch-later/:id`        | `PATCH` | Adicionar filme à lista de Assistir Mais Tarde |
+| `/lists/update/remove-watch-later/:id` | `PATCH` | Remover filme da lista de Assistir Mais Tarde  |
 
-2. **Remover filme da lista de Filmes Favoritos**  
-  - **URL:** `/lists/update/remove-favorite/:id`  
-  - **Método:** `PATCH`  
+#### 📊 Insights (Dashboard)
+| Endpoint            | Método   | Descrição                                       |
+| ------------------- | -------- | ----------------------------------------------- |
+| `/insights/`        | `GET`    | Buscar dados de Insights para gerar o Dashboard |
+---
 
-3. **Adicionar filme à lista de Filmes Assistidos**  
-  - **URL:** `/lists/update/watched:id`  
-  - **Método:** `PATCH`  
+### Requisições
 
-4. **Remover filme da lista de Filmes Assistidos**  
-  - **URL:** `/lists/update/remove-watched/:id`  
-  - **Método:** `PATCH`  
+#### 🔐 - LOGIN
+- **URL:** `/auth/login`
+- **Método:** `POST`
+- **Autenticação:** ❌ Não requer
 
-5. **Adicionar filme à lista de Assistir Mais Tarde**  
-  - **URL:** `/lists/update/watch-later/:id`  
-  - **Método:** `PATCH`  
+##### Body (JSON):
+```json
+{
+  "email": "john@example.com",
+  "password": "StrongPass@123"
+}
+```
 
-6. **Remover filme da lista de Assistir Mais Tarde**
-  - **URL:** `/lists/update/remove-watch-later/:id`
-  - **Método:** `PATCH`
+##### ✅ Resposta 200:
+```json
+{
+  "message": "Login successfully!"
+}
+```
+
+##### ❌ Exemplos de Requisições Inválidas:
+
+**Email inválido:**
+```json
+{
+  "email": "invalidemail",
+  "password": "StrongPass@123"
+}
+```
+Resposta 400: `"Email must be a valid email address."`
+
+**Senha incorreta:**
+Resposta 401: `"Unauthorized: Invalid password"`
+
+**Usuário não encontrado:**
+Resposta 404: `"User not found"`
 
 ---
 
-### 👥 Usuários
+#### 🔐 - ME
+- **URL:** `/auth/me`
+- **Método:** `GET`
+- **Autenticação:** ✅ Requer cookie token
 
-#### 🔽 1. Registrar Usuário
-- **URL:** `/users/register`  
-- **Método:** `POST`  
-- **Autenticação:** ❌ Não requer  
+##### ✅ Resposta 200:
+```json
+{
+  "message": "User logged in successfully!",
+  "user": {
+    "id": "663d74b1e7f06a90b25f2334",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "role": "user"
+  }
+}
+```
+
+---
+
+#### 🔐 - LOGOUT
+- **URL:** `/auth/logout`
+- **Método:** `POST`
+- **Autenticação:** ✅ Requer cookie token
+
+##### ✅ Resposta 200:
+```json
+{
+  "message": "Logout successfully!"
+}
+```
+
+---
+
+#### 👥 - REGISTRAR USUÁRIO
+- **URL:** `/users/register`
+- **Método:** `POST`
+- **Autenticação:** ❌ Não requer
 
 ##### Body (JSON):
 ```json
@@ -181,9 +203,9 @@ Para testes via Postman, habilite o uso de cookies automaticamente após login.
   "password": "StrongPass@123"
 }
 
-//Obs.: As senhas são Codificadas e Validadas com Bcrypt, portanto, não ficam expostas.
 ```
-
+Obs.: As senhas são Codificadas e Validadas com Bcrypt. Portanto, não ficam expostas.
+  
 ##### ✅ Resposta 201:
 ```json
 {
@@ -218,94 +240,16 @@ Resposta 400: `"Name must be at least 6 characters long."`
 ```
 Resposta 400: `"Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character."`
 
-**Email já cadastrado:**  
+**Email já cadastrado:**
 Resposta 409: `"Email already exists"`
 
 ---
 
-#### 📥 2. Login
-- **URL:** `/auth/login`  
-- **Método:** `POST`  
-- **Autenticação:** ❌ Não requer  
-
-##### Body (JSON):
-```json
-{
-  "email": "john@example.com",
-  "password": "StrongPass@123"
-}
-```
-
-##### ✅ Resposta 200:
-```json
-{
-  "message": "Login successfully!"
-}
-```
-
-##### ❌ Exemplos de Requisições Inválidas:
-
-**Email inválido:**
-```json
-{
-  "email": "invalidemail",
-  "password": "StrongPass@123"
-}
-```
-Resposta 400: `"Email must be a valid email address."`
-
-**Senha incorreta:**  
-Resposta 401: `"Unauthorized: Invalid password"`
-
-**Usuário não encontrado:**  
-Resposta 404: `"User not found"`
-
----
-
-#### 📥 3. Me
-- **URL:** `/auth/me`  
-- **Método:** `GET`  
+#### 👥 - BUSCAR TODOS OS USUÁRIOS
+- **URL:** `/users/search`
+- **Método:** `GET`
 - **Autenticação:** ✅ Requer cookie token
-
-##### Body (JSON):
-```json
-{}
-```
-
-##### ✅ Resposta 200:
-```json
-{
-  "message": "User logged in successfully!",
-  "user": {
-    "id": "663d74b1e7f06a90b25f2334",
-    "name": "John Doe",
-    "email": "john@example.com",
-    "role": "user"
-  }
-}
-```
-
----
-
-#### 📤 4. Logout
-- **URL:** `/auth/logout`  
-- **Método:** `POST`  
-- **Autenticação:** ✅ Requer cookie token  
-
-##### ✅ Resposta 200:
-```json
-{
-  "message": "Logout successfully!"
-}
-```
-
----
-
-#### 👥 5. Buscar Todos os Usuários
-- **URL:** `/users/search`  
-- **Método:** `GET`  
-- **Autenticação:** ✅ Requer cookie token  
-- **Permissão:** Somente usuários com role `admin`  
+- **Permissão:** Somente usuários com role `admin`
 
 ##### ✅ Resposta 200:
 ```json
@@ -324,7 +268,7 @@ Resposta 404: `"User not found"`
 
 ---
 
-#### 👤 6. Buscar Usuário por ID
+#### 👤 - BUSCAR USUÁRIO POR ID
 - **URL:** `/users/search/:id`  
 - **Método:** `GET`  
 - **Autenticação:** ✅ Requer cookie token  
@@ -335,10 +279,23 @@ Resposta 404: `"User not found"`
 {
   "message": "User retrieved successfully",
   "user": {
-    "_id": "663d74b1e7f06a90b25f2334",
-    "name": "John Doe",
-    "email": "john@example.com",
-    "role": "user"
+    "_id": "68606b568b30957c22834832",
+    "name": "Joao Silva",
+    "password": "$2b$10$xhPr9oFtbglPGhAGZgEWN.5mGyIlscqqiEMGyFpQvjYHO49FfsSum",
+    "email": "joao-silva-js@email.com",
+    "role": "user",
+    "favoriteList": [
+      { movie },
+    ],
+    "watchLaterList": [
+      { movie },
+      { movie },
+    ],
+    "watchedList": [
+      { movie },
+    ],
+    "createdAt": "2025-06-28T22:23:18.234Z",
+    "updatedAt": "2025-07-04T22:57:22.436Z"
   }
 }
 ```
@@ -353,7 +310,7 @@ Resposta 403: `"Access denied"`
 
 ---
 
-#### ✏️ 7. Atualizar Usuário
+#### 👤 - ATUALIZAR USUÁRIO
 - **URL:** `/users/update/:id`  
 - **Método:** `PATCH`  
 - **Autenticação:** ✅ Requer cookie token  
@@ -364,9 +321,11 @@ Resposta 403: `"Access denied"`
 {
   "name": "Johnny Doe",
   "email": "johnny@example.com",
-  "password": "NewPass@123"
+  "password": "NewPass@123",
+  "role": "admin"
 }
 ```
+Obs.: O método PATCH permite alterar UM ou VÁRIOS atributos por vez.
 
 ##### ✅ Resposta 200:
 ```json
@@ -376,6 +335,7 @@ Resposta 403: `"Access denied"`
     "id": "663d74b1e7f06a90b25f2334",
     "name": "Johnny Doe",
     "email": "johnny@example.com"
+    "role": "admin"
   }
 }
 ```
@@ -390,7 +350,7 @@ Resposta 403: `"Access denied"`
 
 ---
 
-#### 🗑️ 8. Remover Usuário
+#### 👤 - REMOVER USUÁRIO
 - **URL:** `/users/remove/:id`  
 - **Método:** `DELETE`  
 - **Autenticação:** ✅ Requer cookie token  
@@ -418,9 +378,7 @@ Resposta 403: `"Access denied"`
 
 ---
 
-### 📂 Filmes
-
-#### ➕ 1. Registrar Filme
+#### 🎥 - REGISTRAR FILME
 - **URL:** `/movies/register`  
 - **Método:** `POST`  
 - **Autenticação:** ✅ Requer cookie token  
@@ -429,15 +387,15 @@ Resposta 403: `"Access denied"`
 ##### Body (JSON):
 ```json
 {
-  "title": "O Enigma da Meia-Noite",
-  "description": "Um thriller psicológico com reviravoltas inesperadas.",
-  "movies": ["Suspense"],
-  "releaseDate": "2024-10-31T00:00:00.000Z",
-  "director": "Lucas Mendes",
-  "trailerUrl": "https://example.com/images/enigma.jpg",
-  "imageUrl": "https://example.com/images/enigma.jpg",
-  "cast": ["Joana Prado", "Carlos Silveira", "Marta Lopes"]
-}
+  "title": "Pecadores 2",
+  "description": "Tentando deixar suas vidas problemáticas para trás, dois irmãos gêmeos retornam à sua cidade natal para recomeçar, apenas para descobrir que um mal ainda maior está esperando para recebê-los de volta.",
+  "category": ["Terror"],
+  "releaseDate": "04-14-2025",
+  "director": "Ryan Coogler",
+  "trailerUrl": "https://youtu.be/vJ3i983GZs0?feature=shared",
+  "imageUrl": "https://cinemametropolis.com/wp-content/uploads/2025/01/sinners_ver4_poster.jpg",
+  "cast": ["Michael B. Jordan", "Hailee Steinfeld", "Wunmi Mosaku", "Miles Caton", "Jayme Lawson"]
+},
 ```
 
 ##### ✅ Resposta 201:
@@ -445,14 +403,33 @@ Resposta 403: `"Access denied"`
 {
   "message": "Movie created successfully",
   "movie": {
-    "id": "6640a5e1b9a31cf0f5b743d3",
-    "movies": ["Sci-Fi"],
-    "description": "A mind-bending thriller by Christopher Nolan.",
-    "releaseDate": "2010-07-16",
-    "category": "Sci-Fi",
-    "createdAt": "2024-05-12T12:00:00.000Z",
-    "updatedAt": "2024-05-12T12:00:00.000Z"
-  }
+    "title": "Pecadores 2",
+    "description": "Tentando deixar suas vidas problemáticas para trás, dois irmãos gêmeos retornam à sua cidade natal para recomeçar, apenas para descobrir que um mal ainda maior está esperando para recebê-los de volta.",
+    "category": [
+      "Terror"
+    ],
+    "releaseDate": "2025-04-14T00:00:00.000Z",
+    "director": "Ryan Coogler",
+    "imageUrl": "https://cinemametropolis.com/wp-content/uploads/2025/01/sinners_ver4_poster.jpg",
+    "trailerUrl": "https://youtu.be/vJ3i983GZs0?feature=shared",
+    "cast": [
+      "Michael B. Jordan",
+      "Hailee Steinfeld",
+      "Wunmi Mosaku",
+      "Miles Caton",
+      "Jayme Lawson"
+    ],
+    "averageRating": 0,
+    "favoriteCount": 0,
+    "viewCount": 0,
+    "_id": "686878af819aa7b13e7ceee4",
+    "ratings": [],
+    "favorite": [],
+    "view": [],
+    "createdAt": "2025-07-05T00:58:23.893Z",
+    "updatedAt": "2025-07-05T00:58:23.893Z",
+    "__v": 0
+  },
 }
 ```
 
@@ -474,7 +451,7 @@ Resposta 409: `"Movie title already exists"`
 
 ---
 
-#### 📚 2. Buscar Todos os Filmes
+#### 🎥 - BUSCAR TODOS OS FILMES
 - **URL:** `/movies/search`  
 - **Método:** `GET`  
 - **Autenticação:** ✅ Requer cookie token  
@@ -485,38 +462,73 @@ Resposta 409: `"Movie title already exists"`
   "message": "Movies retrieved successfully",
   "movies": [
     {
-      "id": "6640a5e1b9a31cf0f5b743d3",
-      "title": "Inception",
-      "description": "A mind-bending thriller by Christopher Nolan.",
-      "releaseDate": "2010-07-16",
-      "category": "Sci-Fi",
-      "createdAt": "2024-05-12T12:00:00.000Z",
-      "updatedAt": "2024-05-12T12:00:00.000Z"
-    }
-  ]
-}
-```
-
----
-
-#### 🔍 3. Buscar Filme por ID
-- **URL:** `/movies/search/:id`  
-- **Método:** `GET`  
-- **Autenticação:** ✅ Requer cookie token  
-
-##### ✅ Resposta 200:
-```json
-{
-  "message": "Movie retrieved successfully",
-  "movie": {
-    "id": "6640a5e1b9a31cf0f5b743d3",
-    "title": "Inception",
-    "description": "A mind-bending thriller by Christopher Nolan.",
-    "releaseDate": "2010-07-16",
-    "category": "Sci-Fi",
-    "createdAt": "2024-05-12T12:00:00.000Z",
-    "updatedAt": "2024-05-12T12:00:00.000Z"
-  }
+      "_id": "68606b568b30957c2283486b",
+      "title": "Pecadores",
+      "description": "Tentando deixar suas vidas problemáticas para trás, dois irmãos gêmeos retornam à sua cidade natal para recomeçar, apenas para descobrir que um mal ainda maior está esperando para recebê-los de volta.",
+      "category": [
+        "Terror"
+      ],
+      "releaseDate": "2025-04-17T00:00:00.000Z",
+      "director": "Ryan Coogler",
+      "imageUrl": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSRH5fGI3NC5QC3BJZ42w2diBR6tAYPZO-75WOTFU1_zDRtv78D",
+      "trailerUrl": "https://youtu.be/vJ3i983GZs0?feature=shared",
+      "cast": [
+        "Michael B. Jordan",
+        "Hailee Steinfeld",
+        "Wunmi Mosaku",
+        "Miles Caton",
+        "Jayme Lawson"
+      ],
+      "averageRating": 3.4,
+      "favoriteCount": 5,
+      "viewCount": 130,
+      "ratings": [
+        { ratings },
+        { ratings },
+      ],
+      "favorite": [
+        { user },
+      ],
+      "view": [
+        { user },
+      ],
+      "__v": 4,
+      "createdAt": "2025-06-28T22:23:18.811Z",
+      "updatedAt": "2025-07-04T22:57:22.244Z"
+    },
+    {
+      "_id": "68606b568b30957c2283486c",
+      "title": "De Volta à Ação",
+      "description": "Quinze anos depois de abandonar a CIA para formar uma família, os ex-agentes de elite Matt e Emily voltam ao mundo da espionagem ao terem seus disfarces revelados.",
+      "category": [
+        "Comédia",
+        "Ação"
+      ],
+      "releaseDate": "2025-01-17T00:00:00.000Z",
+      "director": "Seth Gordon",
+      "imageUrl": "https://images.justwatch.com/poster/323393660/s718/back-in-action.jpg",
+      "trailerUrl": "https://youtu.be/3davFh1eoVs?feature=shared",
+      "cast": [
+        "Cameron Diaz",
+        "Jamie Fox",
+        "Glenn Close",
+        "Leela Owen",
+        "MacKenna Roberts"
+      ],
+      "averageRating": 0,
+      "favoriteCount": 0,
+      "viewCount": 18,
+      "ratings": [],
+      "favorite": [],
+      "view": [
+        { user },
+        { user },
+      ],
+      "__v": 4,
+      "createdAt": "2025-06-28T22:23:18.811Z",
+      "updatedAt": "2025-07-04T22:57:22.271Z"
+    },
+  ],
 }
 ```
 
@@ -530,7 +542,7 @@ Resposta 404: `"Movie not found"`
 
 ---
 
-#### ✏️ 4. Atualizar Filme
+#### 🎥 - ATUALIZAR FILME
 - **URL:** `/movies/update/:id`  
 - **Método:** `PATCH`  
 - **Autenticação:** ✅ Requer cookie token  
@@ -539,10 +551,7 @@ Resposta 404: `"Movie not found"`
 ##### Body (JSON):
 ```json
 {
-  "title": "Interstellar",
-  "description": "A journey through space and time by Christopher Nolan.",
-  "releaseDate": "2014-11-07",
-  "category": "Sci-Fi"
+  "director": "Ryan Coogler."
 }
 ```
 
@@ -551,13 +560,40 @@ Resposta 404: `"Movie not found"`
 {
   "message": "Movie updated successfully",
   "movie": {
-    "id": "6640a5e1b9a31cf0f5b743d3",
-    "title": "Interstellar",
-    "description": "A journey through space and time by Christopher Nolan.",
-    "releaseDate": "2014-11-07",
-    "category": "Sci-Fi",
-    "createdAt": "2024-05-12T12:00:00.000Z",
-    "updatedAt": "2024-05-12T12:10:00.000Z"
+    "_id": "68606b568b30957c2283486b",
+    "title": "Pecadores",
+    "description": "Tentando deixar suas vidas problemáticas para trás, dois irmãos gêmeos retornam à sua cidade natal para recomeçar, apenas para descobrir que um mal ainda maior está esperando para recebê-los de volta.",
+    "category": [
+      "Terror"
+    ],
+    "releaseDate": "2025-04-17T00:00:00.000Z",
+    "director": "Ryan Coogler.",
+    "imageUrl": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSRH5fGI3NC5QC3BJZ42w2diBR6tAYPZO-75WOTFU1_zDRtv78D",
+    "trailerUrl": "https://youtu.be/vJ3i983GZs0?feature=shared",
+    "cast": [
+      "Michael B. Jordan",
+      "Hailee Steinfeld",
+      "Wunmi Mosaku",
+      "Miles Caton",
+      "Jayme Lawson"
+    ],
+    "averageRating": 3.4,
+    "favoriteCount": 5,
+    "viewCount": 130,
+    "ratings": [
+      { ratings },
+      { ratings }
+    ],
+    "favorite": [
+      { user }
+    ],
+    "view": [
+      { user },
+      { user }
+    ],
+    "__v": 4,
+    "createdAt": "2025-06-28T22:23:18.811Z",
+    "updatedAt": "2025-07-05T01:09:10.032Z"
   }
 }
 ```
@@ -575,7 +611,7 @@ Resposta 404: `"Movie not found"`
 
 ---
 
-#### 🗑️ 5. Remover Filme
+#### 🎥 - REMOVER FILME
 - **URL:** `/movies/remove/:id`  
 - **Método:** `DELETE`  
 - **Autenticação:** ✅ Requer cookie token  
@@ -586,13 +622,32 @@ Resposta 404: `"Movie not found"`
 {
   "message": "Movie deleted successfully",
   "movie": {
-    "id": "6640a5e1b9a31cf0f5b743d3",
-    "title": "Interstellar",
-    "description": "A journey through space and time by Christopher Nolan.",
-    "releaseDate": "2014-11-07",
-    "category": "Sci-Fi",
-    "createdAt": "2024-05-12T12:00:00.000Z",
-    "updatedAt": "2024-05-12T12:10:00.000Z"
+    "_id": "686878af819aa7b13e7ceee4",
+    "title": "Pecadores 2",
+    "description": "Tentando deixar suas vidas problemáticas para trás, dois irmãos gêmeos retornam à sua cidade natal para recomeçar, apenas para descobrir que um mal ainda maior está esperando para recebê-los de volta.",
+    "category": [
+      "Terror"
+    ],
+    "releaseDate": "2025-04-14T00:00:00.000Z",
+    "director": "Ryan Coogler",
+    "imageUrl": "https://cinemametropolis.com/wp-content/uploads/2025/01/sinners_ver4_poster.jpg",
+    "trailerUrl": "https://youtu.be/vJ3i983GZs0?feature=shared",
+    "cast": [
+      "Michael B. Jordan",
+      "Hailee Steinfeld",
+      "Wunmi Mosaku",
+      "Miles Caton",
+      "Jayme Lawson"
+    ],
+    "averageRating": 0,
+    "favoriteCount": 0,
+    "viewCount": 0,
+    "ratings": [],
+    "favorite": [],
+    "view": [],
+    "createdAt": "2025-07-05T00:58:23.893Z",
+    "updatedAt": "2025-07-05T00:58:23.893Z",
+    "__v": 0
   }
 }
 ```
@@ -607,31 +662,20 @@ Resposta 404: `"Movie not found"`
 
 ---
 
-#### 👁️ 6. Adicionar/Atualizar Visualização de Filme
+#### 🎥 - ADICIONAR/ATUALIZAR VISUALIZAÇÃO DE FILME
 - **URL:** `/movies/update/view/:id`  
 - **Método:** `PATCH`  
-- **Autenticação:** ✅ Requer cookie token  
-
-##### Body (JSON):
-```json
-{}
-```
+- **Autenticação:** ✅ Requer cookie token
 
 ##### ✅ Resposta 200:
 ```json
 {
-  "message": "Movie view count updated successfully",
-  "movie": {
-    "id": "6640a5e1b9a31cf0f5b743d3",
-    "movie views": [
-      {
-        "user": "682e7847024c0680b46aeaab",
-        "view": 4,
-        "_id": "6830c2a18556ff78ced30f92"
-      },
-    ],
-    "view count": 76
-  }
+  "message": "Movie views updated successfully",
+  "movie views": [
+    { user },
+    { user }
+  ],
+  "view count": 2
 }
 ```
 
@@ -645,7 +689,7 @@ Resposta 404: `"Movie not found"`
 
 ---
 
-#### ⭐ 7. Adicionar/Atualizar Avaliação de Filme
+#### 🎥 - ADICIONAR/ATUALIZAR AVALIAÇÃO DE FILME
 - **URL:** `/movies/update/rating/:id`  
 - **Método:** `PATCH`  
 - **Autenticação:** ✅ Requer cookie token  
@@ -662,13 +706,11 @@ Resposta 404: `"Movie not found"`
 {
   "message": "Movie rating updated successfully",
   "movie ratings": [
-    {
-      "user": "682e6dd28ec6b27ce8c5b632",
-      "score": 4.9,
-      "_id": "68351cac1dd4552f643e0b41"
-    }
-  ],
-  "average rating": 4.9
+    { ratings },
+    { ratings },
+    { ratings }
+  ]
+  "average rating": 3.4
 }
 ```
 
@@ -685,23 +727,18 @@ Resposta 400: `"Rating must be between 0 and 5"`
 
 ---
 
-
-#### ⭐ 1. Adicionar filme à lista de Filmes Favoritos
-- **URL:** `/lists/update/favorite/:id`  
-- **Método:** `PATCH`  
-- **Autenticação:** ✅ Requer cookie token  
-
-##### Body (JSON):
-```json
-{}
-```
+#### ⭐ - ADICIONAR FILME À LISTA DE FILMES FAVORITOS
+- **URL:** `/lists/update/favorite/:id`
+- **Método:** `PATCH`
+- **Autenticação:** ✅ Requer cookie token
 
 ##### ✅ Resposta 200:
 ```json
 {
   "message": "Movie added to favorites successfully",
-  "favoriteList": [
-      "6640a5e1b9a31cf0f5b743d3",
+  "favorite List": [
+    { movie },
+    { movie }
   ]
 }
 ```
@@ -716,21 +753,18 @@ Resposta 404: `"Movie not found"`
 
 ---
 
-#### ❌ 2. Remover filme da lista de Filmes Favoritos
-- **URL:** `/lists/update/remove-favorite/:id`  
-- **Método:** `PATCH`  
-- **Autenticação:** ✅ Requer cookie token  
-
-##### Body (JSON):
-```json
-{}
-```
+#### ⭐ - REMOVER FILME DA LISTA DE FILMES FAVORITOS
+- **URL:** `/lists/update/remove-favorite/:id`
+- **Método:** `PATCH`
+- **Autenticação:** ✅ Requer cookie token
 
 ##### ✅ Resposta 200:
 ```json
 {
   "message": "Movie removed from favorites successfully",
-  "favoriteList": []
+  "favorite List": [
+    { movie }
+  ]
 }
 ```
 
@@ -744,22 +778,19 @@ Resposta 404: `"Movie not found in favorites"`
 
 ---
 
-#### 👁️ 3. Adicionar filme à lista de Filmes Assistidos
-- **URL:** `/lists/update/watched/:id`  
-- **Método:** `PATCH`  
-- **Autenticação:** ✅ Requer cookie token  
-
-##### Body (JSON):
-```json
-{}
-```
+#### 👁️ - ADICIONAR FILME À LISTA DE FILMES ASSISTIDOS
+- **URL:** `/lists/update/watched/:id`
+- **Método:** `PATCH`
+- **Autenticação:** ✅ Requer cookie token
 
 ##### ✅ Resposta 200:
 ```json
 {
   "message": "Movie added to watched list successfully",
-  "watchedList": [
-      "6640a5e1b9a31cf0f5b743d3",
+  "watched List": [
+    { movie },
+    { movie },
+    { movie }
   ]
 }
 ```
@@ -774,21 +805,19 @@ Resposta 404: `"Movie not found"`
 
 ---
 
-#### ❌ 4. Remover filme da lista de Filmes Assistidos
-- **URL:** `/lists/update/remove-watched/:id`  
-- **Método:** `PATCH`  
-- **Autenticação:** ✅ Requer cookie token  
-
-##### Body (JSON):
-```json
-{}
-```
+#### 👁️ - REMOVER FILME DA LISTA DE FILMES ASSISTIDOS
+- **URL:** `/lists/update/remove-watched/:id`
+- **Método:** `PATCH`
+- **Autenticação:** ✅ Requer cookie token
 
 ##### ✅ Resposta 200:
 ```json
 {
   "message": "Movie removed from watched list successfully",
-  "watchedList": []
+  "watched List": [
+    { movie },
+    { movie }
+  ]
 }
 ```
 
@@ -802,24 +831,19 @@ Resposta 404: `"Movie not found in watched list"`
 
 ---
 
-#### ⏳ 5. Adicionar filme à lista de Assistir Mais Tarde
-- **URL:** `/lists/update/watch-later/:id`  
-- **Método:** `PATCH`  
-- **Autenticação:** ✅ Requer cookie token  
-
-##### Body (JSON):
-```json
-{}
-```
+#### 👁️ - ADICIONAR FILME À LISTA DE ASSISTIR MAIS TARDE
+- **URL:** `/lists/update/watch-later/:id`
+- **Método:** `PATCH`
+- **Autenticação:** ✅ Requer cookie token
 
 ##### ✅ Resposta 200:
 ```json
 {
   "message": "Movie added to watch later list successfully",
-  "watchLaterList": [
-    {
-      "6640a5e1b9a31cf0f5b743d3",
-    }
+  "watch Later List": [
+    { movie },
+    { movie },
+    { movie }
   ]
 }
 ```
@@ -834,21 +858,19 @@ Resposta 404: `"Movie not found"`
 
 ---
 
-#### ❌ 6. Remover filme da lista de Assistir Mais Tarde
-- **URL:** `/lists/update/remove-watch-later/:id`  
-- **Método:** `PATCH`  
-- **Autenticação:** ✅ Requer cookie token  
-
-##### Body (JSON):
-```json
-{}
-```
+#### 👁️ - REMOVER FILME DA LISTA DE ASSISTIR MAIS TARDE
+- **URL:** `/lists/update/remove-watch-later/:id`
+- **Método:** `PATCH`
+- **Autenticação:** ✅ Requer cookie token
 
 ##### ✅ Resposta 200:
 ```json
 {
   "message": "Movie removed from watch later list successfully",
-  "watchLaterList": []
+  "watch Later List": [
+    { movie },
+    { movie }
+  ]
 }
 ```
 
