@@ -285,14 +285,14 @@ Resposta 409: `"Email already exists"`
     "email": "joao-silva-js@email.com",
     "role": "user",
     "favoriteList": [
-      { movie },
+      { "...movie" },
     ],
     "watchLaterList": [
-      { movie },
-      { movie },
+      { "...movie" },
+      { "...movie" },
     ],
     "watchedList": [
-      { movie },
+      { "...movie" },
     ],
     "createdAt": "2025-06-28T22:23:18.234Z",
     "updatedAt": "2025-07-04T22:57:22.436Z"
@@ -483,14 +483,14 @@ Resposta 409: `"Movie title already exists"`
       "favoriteCount": 5,
       "viewCount": 130,
       "ratings": [
-        { ratings },
-        { ratings },
+        { "...ratings" },
+        { "...ratings" },
       ],
       "favorite": [
-        { user },
+        { "...user" },
       ],
       "view": [
-        { user },
+        { "...user" },
       ],
       "__v": 4,
       "createdAt": "2025-06-28T22:23:18.811Z",
@@ -521,8 +521,8 @@ Resposta 409: `"Movie title already exists"`
       "ratings": [],
       "favorite": [],
       "view": [
-        { user },
-        { user },
+        { "...user" },
+        { "...user" },
       ],
       "__v": 4,
       "createdAt": "2025-06-28T22:23:18.811Z",
@@ -581,15 +581,15 @@ Resposta 404: `"Movie not found"`
     "favoriteCount": 5,
     "viewCount": 130,
     "ratings": [
-      { ratings },
-      { ratings }
+      { "...ratings" },
+      { "...ratings" }
     ],
     "favorite": [
-      { user }
+      { "...user" }
     ],
     "view": [
-      { user },
-      { user }
+      { "...user" },
+      { "...user" }
     ],
     "__v": 4,
     "createdAt": "2025-06-28T22:23:18.811Z",
@@ -672,8 +672,8 @@ Resposta 404: `"Movie not found"`
 {
   "message": "Movie views updated successfully",
   "movie views": [
-    { user },
-    { user }
+    { "...user" },
+    { "...user" }
   ],
   "view count": 2
 }
@@ -706,9 +706,9 @@ Resposta 404: `"Movie not found"`
 {
   "message": "Movie rating updated successfully",
   "movie ratings": [
-    { ratings },
-    { ratings },
-    { ratings }
+    { "...ratings" },
+    { "...ratings" },
+    { "...ratings" }
   ]
   "average rating": 3.4
 }
@@ -737,8 +737,8 @@ Resposta 400: `"Rating must be between 0 and 5"`
 {
   "message": "Movie added to favorites successfully",
   "favorite List": [
-    { movie },
-    { movie }
+    { "...movie" },
+    { "...movie" }
   ]
 }
 ```
@@ -763,7 +763,7 @@ Resposta 404: `"Movie not found"`
 {
   "message": "Movie removed from favorites successfully",
   "favorite List": [
-    { movie }
+    { "...movie" }
   ]
 }
 ```
@@ -788,9 +788,9 @@ Resposta 404: `"Movie not found in favorites"`
 {
   "message": "Movie added to watched list successfully",
   "watched List": [
-    { movie },
-    { movie },
-    { movie }
+    { "...movie" },
+    { "...movie" },
+    { "...movie" }
   ]
 }
 ```
@@ -815,8 +815,8 @@ Resposta 404: `"Movie not found"`
 {
   "message": "Movie removed from watched list successfully",
   "watched List": [
-    { movie },
-    { movie }
+    { "...movie" },
+    { "...movie" }
   ]
 }
 ```
@@ -841,9 +841,9 @@ Resposta 404: `"Movie not found in watched list"`
 {
   "message": "Movie added to watch later list successfully",
   "watch Later List": [
-    { movie },
-    { movie },
-    { movie }
+    { "...movie" },
+    { "...movie" },
+    { "...movie" }
   ]
 }
 ```
@@ -868,8 +868,8 @@ Resposta 404: `"Movie not found"`
 {
   "message": "Movie removed from watch later list successfully",
   "watch Later List": [
-    { movie },
-    { movie }
+    { "...movie" },
+    { "...movie" }
   ]
 }
 ```
@@ -882,6 +882,82 @@ Resposta 400: `"Invalid movie ID format"`
 **Filme não encontrado na lista:**  
 Resposta 404: `"Movie not found in watch later list"`
 
+---
+
+#### 📊 - BUSCAR DADOS DE INSIGHTS (DASHBOARD)
+- **URL:** `/insights/`
+- **Método:** `GET`
+- **Autenticação:** ✅ Requer cookie token
+
+##### ✅ Resposta 200:
+```json
+{
+  "message": "insights successfully generated",
+  "insights": {
+    "favorites": {
+      "top3Favorites": [
+        { "...movie" },
+        { "...movie" },
+        { "...movie" }
+      ],
+      "mostFavoriteMovieOfTheMonth": { "...movie" },
+      "miniCards": {
+        "totalMovies": 50,
+        "totalFavoriteMarks": 120,
+        "percentageOfFavorited": 68.4
+      }
+    },
+    "watched": {
+      "top3MostWatched": [
+        { "...movie" },
+        { "...movie" },
+        { "...movie" }
+      ],
+      "mostWatchedOfTheMonth": { "...movie" },
+      "miniCards": {
+        "totalViews": 340,
+        "percentageOfWatchedMovies": 72.1,
+        "userWhoWatchedTheMostMovies": {
+          "id": "663d74b1e7f06a90b25f2332",
+          "name": "Maria"
+        }
+      }
+    },
+    "ratings": {
+      "top3Ratings": [
+        { "...movie" },
+        { "...movie" },
+        { "...movie" }
+      ],
+      "mostRatedMovieOfTheMonth": { "...movie" },
+      "miniCards": {
+        "totalRatings": 210,
+        "overallRatingAverage": 4.35,
+        "userWhoRatedTheMostMovies": {
+          "id": "663d74b1e7f06a90b25f2334",
+          "name": "John Doe"
+        }
+      }
+    }
+  }
+}
+```
+
+##### ❌ Exemplos de Erros:
+
+**Usuário não autenticado:**  
+Resposta 401:
+```json
+{ "message": "Unauthorized" }
+```
+
+**Erro inesperado no servidor:**  
+Resposta 500:
+```json
+{ "message": "Internal server error while generating insights" }
+```
+
+---
 
 ### 📌 Observações Finais
 
