@@ -6,7 +6,7 @@ const movieList = [
     "releaseDate": new Date("2025-04-17"),
     "director": "Ryan Coogler",
     "trailerUrl": "https://youtu.be/vJ3i983GZs0?feature=shared",
-    "imageUrl": "https://cinemametropolis.com/wp-content/uploads/2025/01/sinners_ver4_poster.jpg",
+    "imageUrl": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSRH5fGI3NC5QC3BJZ42w2diBR6tAYPZO-75WOTFU1_zDRtv78D",
     "cast": ["Michael B. Jordan", "Hailee Steinfeld", "Wunmi Mosaku", "Miles Caton", "Jayme Lawson"]
   },
   {
@@ -181,7 +181,7 @@ const movieList = [
   },
   {
     "title": "Jurassic World: Domínio",
-    "description": 'Após os eventos de ""Reino Ameaçado", humanos e dinossauros precisam aprender a coexistir enquanto surgem novas ameaças.',
+    "description": 'Após os eventos de "Reino Ameaçado", humanos e dinossauros precisam aprender a coexistir enquanto surgem novas ameaças.',
     "category": ["Aventura", "Ficção Científica"],
     "releaseDate": new Date("2022-06-10"),
     "director": "Colin Trevorrow",
@@ -412,7 +412,7 @@ const movieList = [
   {
     "title": "A Velha Guarda",
     "description": "The Old Guard é um filme de super-heróis americano de 2020, dirigido por Gina Prince-Bythewood e escrito por Greg Rucka , baseado em sua série de histórias em quadrinhos",
-    "category": ["Ação", "Fantasia", "Ficção científica", "Aventura", "Suspense"],
+    "category": ["Ação", "Fantasia", "Ficção Científica", "Aventura", "Suspense"],
     "releaseDate": new Date("2020-07-10"),
     "director": "Gina Prince-Bythewood",
     "trailerUrl": "https://www.youtube.com/watch?v=x4_EAlRLY_E",
@@ -435,8 +435,8 @@ const movieList = [
     "category": ["Terror"],
     "releaseDate": new Date("2025-08-14"),
     "director": "Michael Shanks",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "trailerUrl": "https://www.youtube.com/watch?v=v4Xu-jxRG5c",
+    "imageUrl": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRd8SEqFcM85Cz4YtsnY10QbcOyU4jqtKgNS5w69tMtPRwiLddF",
     "cast": ["Dave Franco", "Allison Brie", "Damon Herriman"]
   },
   {
@@ -445,18 +445,18 @@ const movieList = [
     "category": ["Ação", "Aventura", "Ficção Científica"],
     "releaseDate": new Date("2024-12-20"),
     "director": "James Cameron",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "trailerUrl": "https://www.youtube.com/watch?v=XXuLWW3H3jY",
+    "imageUrl": "https://br.web.img2.acsta.net/c_310_420/pictures/23/01/31/19/10/0886604.png",
     "cast": ["Sam Worthington", "Zoe Saldana", "Sigourney Weaver"]
   },
   {
     "title": "Mufasa: O Rei Leão",
     "description": "Prequel de 'O Rei Leão', que explora a história de Mufasa antes de se tornar o rei de toda a savana. O filme revela como Mufasa superou suas dificuldades e se tornou um dos personagens mais queridos do mundo da Disney.",
-    "category": ["Animação", "Aventura", "Família"],
+    "category": ["Animação", "Aventura"],
     "releaseDate": new Date("2024-07-05"),
     "director": "Barry Jenkins",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "trailerUrl": "https://www.youtube.com/watch?v=o17MF9vnabg",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/pt/1/1a/Mufasa_P%C3%B4ster.webp",
     "cast": ["Aaron Pierre", "Kelvin Harrison Jr.", "John Kani"]
   },
   {
@@ -465,19 +465,19 @@ const movieList = [
     "category": ["Faroeste", "Comédia", "Drama"],
     "releaseDate": new Date("2018-11-16"),
     "director": "Joel Coen, Ethan Coen",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "trailerUrl": "https://www.youtube.com/watch?v=rJqOKGLH_mw&pp=0gcJCfwAo7VqN5tD",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/pt/b/b5/The_Ballad_of_Buster_Scruggs.jpg",
     "cast": ["Tim Blake Nelson", "James Franco", "Liam Neeson"]
   },
   {
-    "title": "Notícias do Mundo",
-    "description": "Em um cenário pós-Guerra Civil americana, um ex-soldado tenta levar uma jovem órfã, que foi criada por uma tribo nativa, de volta para seus parentes. Uma jornada emocionante sobre sobrevivência e dignidade em tempos difíceis.",
+    "title": "Relatos do Mundo",
+    "description": "Um veterano de guerra que viaja de cidade em cidade lendo as notícias faz uma perigosa viagem pelo Texas para levar uma garotinha órfã até seu novo lar.",
     "category": ["Drama", "Aventura", "Faroeste"],
-    "releaseDate": new Date("2020-12-25"),
+    "releaseDate": new Date("2020-01-21"),
     "director": "Paul Greengrass",
-    "trailerUrl": "",
-    "imageUrl": "",
-    "cast": ["Tom Hanks", "Helena Zengel", "Mare Winningham"]
+    "trailerUrl": "https://www.youtube.com/watch?v=OawrKhc3XdM",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/pt/e/ed/News_of_the_World_%28filme%29.png",
+    "cast": ["Tom Hanks", "Helena Zengel", "Truman Theodore Hanks", "Mare Winningham"]
   },
   {
     "title": "Morto por Um Dólar",
@@ -485,8 +485,8 @@ const movieList = [
     "category": ["Faroeste", "Ação", "Suspense"],
     "releaseDate": new Date("2021-09-14"),
     "director": "Walter Hill",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "trailerUrl": "https://www.youtube.com/watch?v=rB1zDXgQxic",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/4/44/Dead_for_a_Dollar.jpg",
     "cast": ["Willem Dafoe", "Christopher Lloyd", "Rachel Brosnahan"]
   },
   {
@@ -495,8 +495,8 @@ const movieList = [
     "category": ["Ação", "Terror", "Ficção Científica"],
     "releaseDate": new Date("2022-08-05"),
     "director": "Dan Trachtenberg",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "trailerUrl": "https://www.youtube.com/watch?v=uzqYqoVoU74",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/pt/a/a3/Predators_2010.jpg",
     "cast": ["Amber Midthunder", "Dane DiLiegro", "Toby Huss"]
   },
   {
@@ -505,8 +505,8 @@ const movieList = [
     "category": ["Ação", "Comédia", "Drama"],
     "releaseDate": new Date("2022-08-12"),
     "director": "Todd Phillips",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "trailerUrl": "https://www.youtube.com/watch?v=EPFcsr0gpBE",
+    "imageUrl": "https://br.web.img2.acsta.net/c_310_420/pictures/16/04/16/00/25/503456.jpg",
     "cast": ["Miles Teller", "Jonah Hill", "Bradley Cooper"]
   },
   {
@@ -515,19 +515,19 @@ const movieList = [
     "category": ["Drama", "Guerra"],
     "releaseDate": new Date("2022-10-28"),
     "director": "Edward Berger",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "trailerUrl": "https://www.youtube.com/watch?v=vwbySrsD7RU&pp=0gcJCfwAo7VqN5tD",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/pt/4/42/All_quiet_on_the_western_front_-_poster.jpg",
     "cast": ["Felix Kammerer", "Albrecht Schuch", "Daniel Brühl"]
   },
   {
-    "title": "Devoção",
-    "description": "Durante a Guerra da Coreia, dois aviadores se tornam heróis ao enfrentar desafios inimagináveis nos céus. Uma história de coragem, lealdade e sacrifício, com foco na amizade entre os pilotos.",
+    "title": "Irmãos de Honra",
+    "description": "A história de Jesse Brown, o primeiro aviador negro na história da Marinha, e seu colega piloto de caça Tom Hudner. Ajudando a virar a maré na batalha mais brutal da Guerra da Coreia, seus sacrifícios heroicos os tornam os alas mais importantes.",
     "category": ["Ação", "Drama", "Guerra"],
-    "releaseDate": new Date("2022-11-23"),
+    "releaseDate": new Date("2022-12-08"),
     "director": "J.D. Dillard",
-    "trailerUrl": "",
-    "imageUrl": "",
-    "cast": ["Glen Powell", "Jonathan Majors", "Joe Jonas"]
+    "trailerUrl": "https://www.youtube.com/watch?v=jVuGS8JlVIc",
+    "imageUrl": "https://br.web.img3.acsta.net/pictures/22/11/07/16/23/1362246.png",
+    "cast": ["Glen Powell", "Jonathan Majors", "Joe Jonas", "Serinda Swan"]
   },
   {
     "title": "Marinheiro de Guerra",
@@ -535,18 +535,18 @@ const movieList = [
     "category": ["Guerra", "Drama"],
     "releaseDate": new Date("2021-03-19"),
     "director": "Ang Lee",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "trailerUrl": "https://www.youtube.com/watch?v=BDHVGojB5ig",
+    "imageUrl": "https://media.fstatic.com/JjJ11czIYiZeWTDbrY9CIFUhwuI=/210x312/smart/filters:format(webp)/media/movies/covers/2023/04/mz8zD8adyQ07dMPbXqHWEVmYyUp.jpg",
     "cast": ["Will Smith", "Chiwetel Ejiofor", "Tommy Lee Jones"]
   },
   {
-    "title": "Vidro Quebrado",
+    "title": "Vidro",
     "description": "Uma história de mistério e suspense onde um homem é acusado injustamente de um crime, e sua luta para provar sua inocência leva a descobertas surpreendentes e reviravoltas inesperadas.",
     "category": ["Mistério", "Suspense"],
     "releaseDate": new Date("2019-01-18"),
     "director": "M. Night Shyamalan",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "trailerUrl": "https://www.youtube.com/watch?v=Noi8mDg-8Ik&pp=0gcJCfwAo7VqN5tD",
+    "imageUrl": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQJQHtG0zYEhh8e7MKg8cUoFA8hzJHr7XQeiJPf20mTCxoOr90P",
     "cast": ["Bruce Willis", "James McAvoy", "Samuel L. Jackson"]
   },
   {
@@ -555,8 +555,8 @@ const movieList = [
     "category": ["Mistério", "Comédia", "Suspense"],
     "releaseDate": new Date("2019-11-27"),
     "director": "Rian Johnson",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "trailerUrl": "https://www.youtube.com/watch?v=qGqiHJTsRkQ",
+    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkMSNAXhoS2AnRtcjR7VNby7wni5BO_zPB_f3-QPP2P3W529XB",
     "cast": ["Daniel Craig", "Chris Evans", "Ana de Armas"]
   },
   {
@@ -565,48 +565,48 @@ const movieList = [
     "category": ["Ação", "Suspense", "Comédia"],
     "releaseDate": new Date("2022-07-15"),
     "director": "David Leitch",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "trailerUrl": "https://www.youtube.com/watch?v=YF-hKBHFqv0",
+    "imageUrl": "https://br.web.img3.acsta.net/pictures/22/06/23/22/36/5311627.jpg",
     "cast": ["Brad Pitt", "Sandra Bullock", "Joey King"]
   },
   {
-    "title": "O Olho Azul Claro",
+    "title": "O Pálido Olho Azul",
     "description": "Um thriller psicológico sobre um homem que luta para proteger sua filha enquanto enfrenta forças misteriosas e implacáveis que ameaçam a sua segurança e a dela.",
     "category": ["Suspense", "Mistério"],
     "releaseDate": new Date("2022-05-13"),
     "director": "David Fincher",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "trailerUrl": "https://www.youtube.com/watch?v=ANnDun4ZuGs&pp=0gcJCfwAo7VqN5tD",
+    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYoMoGtUQj-8nLED38XWk8C_p68895406bCw&s",
     "cast": ["Joaquin Phoenix", "Tessa Thompson", "Vincent Cassel"]
   },
   {
-    "title": "Eurovision Song Contest: A História de Fire Saga",
+    "title": "Festival Eurovision da Canção: A Saga de Sigrit e Lars",
     "description": "Dois músicos islandeses, com um sonho de conquistar o Eurovision, enfrentam muitos obstáculos e situações hilárias enquanto tentam ganhar o maior concurso de música da Europa.",
     "category": ["Comédia", "Musical"],
     "releaseDate": new Date("2020-06-26"),
     "director": "David Dobkin",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "trailerUrl": "https://www.youtube.com/watch?v=jtl5wM5dMt4",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/pt/thumb/9/92/The_Story_of_Fire_Saga.jpg/200px-The_Story_of_Fire_Saga.jpg",
     "cast": ["Will Ferrell", "Rachel McAdams", "Pierce Brosnan"]
   },
   {
-    "title": "Espíritos: A Morte é Só o Começo",
-    "description": "Após sofrer uma grande perda, um homem começa a se envolver com eventos sobrenaturais e espíritos do além. À medida que sua jornada avança, ele se vê cada vez mais imerso em um mundo de mistério e terror.",
+    "title": "Não Solte!",
+    "description": "Uma família é assombrada por um espírito maligno por muitos anos. A sua segurança e o ambiente que os rodeia correm perigo quando uma das crianças pergunta se o mal é real.",
     "category": ["Terror", "Suspense"],
-    "releaseDate": new Date("2021-10-15"),
-    "director": "Mike Flanagan",
-    "trailerUrl": "",
-    "imageUrl": "",
-    "cast": ["Ethan Hawke", "Jessica Chastain", "Michael Sheen"]
+    "releaseDate": new Date("2024-09-20"),
+    "director": "Alexandre Aja",
+    "trailerUrl": "https://www.youtube.com/watch?v=ZDfRp_ukHDU&pp=0gcJCfwAo7VqN5tD",
+    "imageUrl": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTsTHPDumzVjMr6gv7ci49NEVfaZFXrUxXQeA5GwLOhqFf38mC1",
+    "cast": ["Halle Barry", "Percy Dags IV", "Percy Dags III", "Stephanie Lavigne", "Anthony B. Jenkins"]
   },
   {
-    "title": "The Unauthorized Bash Brothers Experience",
-    "description": "Um especial musical e de comédia que segue dois jogadores de beisebol de uma forma irreverente e exagerada, enquanto eles se tornam ícones pop durante os anos 80. A sátira é cheia de músicas originais e momentos absurdos.",
+    "title": "Lonely Island e os Irmãos Bash",
+    "description": "Com uma paródia em forma de rap, The Lonely Island homenageia o sucesso dos astros do beisebol Jose Canseco e Mark McGwire nos anos 1980.",
     "category": ["Comédia", "Musical"],
     "releaseDate": new Date("2019-05-23"),
-    "director": "Lonnie Chavis",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "director": "Akiva Schaffer and Mike Diva",
+    "trailerUrl": "https://www.youtube.com/watch?v=VfKJxowxBb4",
+    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeMQtPo2wHNZaDNVOoBSAZNSg--2KeVqvMcoO-uG2ljgSCSkoFmIdH9Wc&usqp=CAE&s",
     "cast": ["Andy Samberg", "Akiva Schaffer", "Jorma Taccone"]
   },
   {
@@ -615,8 +615,8 @@ const movieList = [
     "category": ["Comédia", "Drama", "Romance"],
     "releaseDate": new Date("2022-06-17"),
     "director": "Cooper Raiff",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "trailerUrl": "https://www.youtube.com/watch?v=v_pm3fwmlto&pp=0gcJCfwAo7VqN5tD",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/6/66/Cha_Cha_Real_Smooth_%28poster%29.jpg/250px-Cha_Cha_Real_Smooth_%28poster%29.jpg",
     "cast": ["Cooper Raiff", "Dakota Johnson", "Leslie Mann"]
   },
   {
@@ -625,8 +625,8 @@ const movieList = [
     "category": ["Comédia", "Fantasia"],
     "releaseDate": new Date("2023-07-21"),
     "director": "Greta Gerwig",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "trailerUrl": "https://www.youtube.com/watch?v=5CjOjZSKrqE",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/pt/8/82/Barbie_%282023%29.jpg",
     "cast": ["Margot Robbie", "Ryan Gosling", "Will Ferrell"]
   },
   {
@@ -635,29 +635,29 @@ const movieList = [
     "category": ["Ação", "Comédia"],
     "releaseDate": new Date("2020-01-17"),
     "director": "Adil El Arbi, Bilall Fallah",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "trailerUrl": "https://www.youtube.com/watch?v=ntmz9rVs3n8",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/pt/6/69/Bad_Boys_for_Life_%28poster%29.jpg",
     "cast": ["Will Smith", "Martin Lawrence", "Vanessa Hudgens"]
   },
   {
-    "title": "O Som do Coração",
-    "description": "A história de um garoto prodígio da música que, após perder sua habilidade de tocar, luta para encontrar um novo propósito e descobrir como a música ainda pode influenciar sua vida e a das pessoas ao seu redor.",
-    "category": ["Drama", "Música", "Família"],
-    "releaseDate": new Date("2021-09-18"),
+    "title": "Mesmo Se Nada Der Certo",
+    "description": "Em uma apresentação informal em um bar, Gretta conhece Dan, um produtor musical que se encanta pelo talento da moça e a convida para gravar um álbum pelas ruas de Nova York.",
+    "category": ["Drama", "Musical", "Romance", "Comédia"],
+    "releaseDate": new Date("2014-09-18"),
     "director": "John Carney",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "trailerUrl": "https://www.youtube.com/watch?v=qep22C9CBJQ&pp=0gcJCfwAo7VqN5tD",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/pt/b/bd/Begin_Again_film_poster_2014.jpg",
     "cast": ["Mark Ruffalo", "Keira Knightley", "James Corden"]
   },
   {
-    "title": "O Homem Que Caiu",
-    "description": "Um filme psicológico que segue um homem que, após sobreviver a um acidente, começa a questionar sua realidade e os mistérios que envolvem sua própria vida. Uma exploração sobre identidade e a percepção da verdade.",
-    "category": ["Suspense", "Mistério", "Drama"],
-    "releaseDate": new Date("2022-04-01"),
-    "director": "Christopher Nolan",
-    "trailerUrl": "",
-    "imageUrl": "",
-    "cast": ["Matthew McConaughey", "Jessica Chastain", "John David Washington"]
+    "title": "Armadilha",
+    "description": "O serial killer Cooper leva sua filha adolescente para o show de uma diva pop. A garota está explodindo de felicidade e tudo parece correr bem, mas Cooper percebe uma movimentação diferente da segurança do lugar. Mesmo sem conhecer sua real identidade, a polícia descobriu que o famoso assassino estará no evento e armou uma cilada para pegá-lo. Encurralado, ele deve usar sua mente engenhosa para fugir do lugar.",
+    "category": ["Terror", "Suspense", "Drama", "Mistério"],
+    "releaseDate": new Date("2024-08-02"),
+    "director": "M. Night Shyamalan",
+    "trailerUrl": "https://www.youtube.com/watch?v=hJiPAJKjUVg",
+    "imageUrl": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRKLGlSpdrvUUqfwZmab9baDE9J9v4QJSm-E69sfODRp_GnAq-p",
+    "cast": ["Josh Hartnett", "Alison Pill", "Saleka Night", "Ariel Donoghue", "Kid Cudi"]
   },
   {
     "title": "M3GAN 2.0",
@@ -665,8 +665,8 @@ const movieList = [
     "category": ["Terror", "Ficção Científica"],
     "releaseDate": new Date("2024-02-16"),
     "director": "Gerard Johnstone",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "trailerUrl": "https://www.youtube.com/watch?v=2rBk2lH6nA8&pp=0gcJCfwAo7VqN5tD",
+    "imageUrl": "https://dx35vtwkllhj9.cloudfront.net/universalstudios/m3gan-20/images/regions/us/updates2/onesheet.jpg",
     "cast": ["Allison Williams", "Violet McGraw", "Amy McDonald"]
   },
   {
@@ -675,8 +675,8 @@ const movieList = [
     "category": ["Terror", "Mistério", "Suspense"],
     "releaseDate": new Date("2023-07-21"),
     "director": "Danny Philippou, Michael Philippou",
-    "trailerUrl": "",
-    "imageUrl": "",
+    "trailerUrl": "https://www.youtube.com/watch?v=aLAKJu9aJys",
+    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_EoX8vv7rux4yd1HPBR5q82SZGer0Qy33Xp1D2q-N_0vFxy7m",
     "cast": ["Sophie Wilde", "Alexandra Jensen", "Miranda Otto"]
   },
   {
@@ -692,7 +692,7 @@ const movieList = [
   {
     "title": "O Astronauta",
     "description": "Um astronauta enfrenta uma missão solitária de seis meses no espaço. Ele sente os efeitos extremos do isolamento e sofre com saudades da esposa. Lutando para se manter são, o homem é visitado por uma criatura alienígena que promete ajudá-lo a curar seus traumas. Os dois partem juntos em uma viagem pela mente e pelas angústias do viajante do espaço.",
-    "category": ['Ficção científica', 'Aventura', 'Drama', 'Suspense'],
+    "category": ['Ficção Científica', 'Aventura', 'Drama', 'Suspense'],
     "releaseDate": new Date("2024-02-23"),
     "director": "Johan Renck",
     "trailerUrl": "https://www.youtube.com/watch?v=7iilX1_L7rg",
@@ -702,7 +702,7 @@ const movieList = [
   {
     "title": "Planeta dos Macacos: O Reinado",
     "description": "Muitas sociedades de macacos cresceram desde quando César levou seu povo a um oásis, enquanto os humanos foram reduzidos a sobreviver e se esconder nas sombras. Um líder macaco começa a escravizar outros grupos para encontrar tecnologia humana, enquanto um jovem macaco, que viu seu clã ser capturado, embarca em uma viagem para encontrar a liberdade, sendo uma jovem humana a chave para todos.",
-    "category": ["Ação", "aventura", "Ficção científica"],
+    "category": ["Ação", "Aventura", "Ficção Científica"],
     "releaseDate": new Date("2024-05-23"),
     "director": "Wes Ball",
     "trailerUrl": "https://www.youtube.com/watch?v=NmTPDA15lPA&pp=0gcJCfwAo7VqN5tD",
@@ -712,7 +712,7 @@ const movieList = [
   {
     "title": "Interestelar",
     "description": "As reservas naturais da Terra estão chegando ao fim e um grupo de astronautas recebe a missão de verificar possíveis planetas para receberem a população mundial, possibilitando a continuação da espécie. Cooper é chamado para liderar o grupo e aceita a missão sabendo que pode nunca mais ver os filhos. Ao lado de Brand, Jenkins e Doyle, ele seguirá em busca de um novo lar.",
-    "category": ["Ficção científica", "Ação", "Suspense", "Aventura", "Mistério", "Drama"],
+    "category": ["Ficção Científica", "Ação", "Suspense", "Aventura", "Mistério", "Drama"],
     "releaseDate": new Date("2014-11-06"),
     "director": "Christopher Nolan",
     "trailerUrl": "https://www.youtube.com/watch?v=i6avfCqKcQo",
@@ -766,7 +766,7 @@ const movieList = [
     "releaseDate": new Date("2020-01-16"),
     "director": "Sam Mendes",
     "trailerUrl": "https://www.youtube.com/watch?v=_3gy6K7LXHg&pp=0gcJCfwAo7VqN5tD",
-    "imageUrl": "https://pt.wikipedia.org/wiki/1917_(filme)#/media/Ficheiro:1917_poster.jpg",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/pt/f/ff/1917_poster.jpg",
     "cast": ["Dean-Charles Chapman", "George Mackay", "Daniel Mays"]
   },
   {
@@ -796,7 +796,7 @@ const movieList = [
     "releaseDate": new Date("2015-02-19"),
     "director": "Clint Eastwood",
     "trailerUrl": "https://www.youtube.com/watch?v=Gl2jBtlJ42g&pp=0gcJCfwAo7VqN5tD",
-    "imageUrl": "",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/pt/d/d5/American_Sniper.jpg",
     "cast": ["Bradley Cooper", "Sienna Miller", "Max Charles", "Luke Grimes", "Kyle Gallner"]
   }
 ];
